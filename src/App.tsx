@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Investors from './pages/Investors';
 import Field from './pages/Field';
 import TommyAI from './pages/TommyAI';
+import HeptagonPage from './pages/Heptagon';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/investors" element={<Investors />} />
           <Route path="/field" element={<Field />} />
           <Route path="/tommyai" element={<TommyAI />} />
+          <Route path="/heptagon" element={<HeptagonPage />} />
         </Routes>
       </div>
     </Router>
