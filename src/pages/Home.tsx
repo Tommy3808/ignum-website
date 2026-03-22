@@ -53,6 +53,7 @@ export default function Home() {
               <a href="#sovereign-stack" className="nav-link">Sovereign Stack</a>
               <a href="#infrastructure" className="nav-link">Infrastructure</a>
               <Link to="/investors" className="nav-link">Investors</Link>
+              <Link to="/tommyai" className="nav-link">Tommy-AI</Link>
               <Link to="/field" className="btn-outline text-xs py-2 px-4">Enter the Field</Link>
             </div>
           </div>
