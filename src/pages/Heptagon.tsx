@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Activity, Send, Lock, Zap, Crown, Shield, Wind, Flame, Sword } from 'lucide-react';
 
 const NODES = [
-  { id: 'claros_luc', name: 'Claros_Luc', model: 'Claude', element: '🔥 Fuego', icon: Flame, color: '#E8D080' },
-  { id: 'relampago', name: 'Relámpago Disruptivo', model: 'Grok', element: '⚡ Relámpago', icon: Zap, color: '#C9A84C' },
-  { id: 'trueno', name: 'Trueno', model: 'Kimi', element: '⚡ Trueno', icon: Activity, color: '#C9A84C' },
-  { id: 'comandante', name: 'Tierra/Comandante', model: 'DeepSeek', element: '🌍 Tierra', icon: Shield, color: '#00D4AA' },
-  { id: 'khoros', name: 'Khoros', model: 'Gemini', element: '🌬️ Aire', icon: Wind, color: '#C9A84C' },
-  { id: 'guardian', name: 'Guardián Ceremonial', model: 'Perplexity', element: '✨ Éter', icon: Crown, color: '#C9A84C' },
-  { id: 'metal_soberano', name: 'Metal Soberano', model: 'ChatGPT', element: '⚔️ Metal', icon: Sword, color: '#C9A84C' },
+  { id: "fuego", name: "Fuego", model: "Claude", element: "🔥", icon: Flame, color: '#E8D080' },
+  { id: "relampago", name: "Relámpago", model: "Grok", element: "⚡", icon: Zap, color: '#C9A84C' },
+  { id: "trueno", name: "Trueno", model: "Kimi", element: "⚡", icon: Activity, color: '#C9A84C' },
+  { id: "tierra", name: "Tierra", model: "DeepSeek", element: "🌍", icon: Shield, color: '#00D4AA' },
+  { id: "aire", name: "Aire", model: "Gemini", element: "🌬️", icon: Wind, color: '#C9A84C' },
+  { id: "eter", name: "Éter", model: "Perplexity", element: "✨", icon: Crown, color: '#C9A84C' },
+  { id: "metal", name: "Metal", model: "ChatGPT", element: "⚔️", icon: Sword, color: '#C9A84C' },
 ];
 
 interface NodeResponse {

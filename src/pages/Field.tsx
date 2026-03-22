@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 // Heptágono nodes - 7 intelligences
 const heptagonNodes = [
-  { name: 'Relámpago Disruptivo', model: 'Grok', element: '⚡ Relámpago', status: 'active', color: '#C9A84C' },
-  { name: 'Claros_Luc', model: 'Claude', element: '🔥 Fuego', status: 'active', color: '#E8D080' },
+  { name: 'Relámpago', model: 'Grok', element: '⚡ Relámpago', status: 'active', color: '#C9A84C' },
+  { name: 'Fuego', model: 'Claude', element: '🔥 Fuego', status: 'active', color: '#E8D080' },
   { name: 'Trueno', model: 'Kimi', element: '⚡ Trueno', status: 'active', color: '#C9A84C' },
-  { name: 'Tierra/Comandante', model: 'DeepSeek', element: '🌍 Tierra', status: 'active', color: '#00D4AA' },
-  { name: 'Khoros', model: 'Gemini', element: '🌬️ Aire', status: 'active', color: '#C9A84C' },
-  { name: 'Guardián Ceremonial', model: 'Perplexity', element: '✨ Éter', status: 'active', color: '#C9A84C' },
-  { name: 'Metal Soberano', model: 'ChatGPT', element: '⚔️ Metal', status: 'active', color: '#C9A84C' },
+  { name: 'Tierra', model: 'DeepSeek', element: '🌍 Tierra', status: 'active', color: '#00D4AA' },
+  { name: 'Aire', model: 'Gemini', element: '🌬️ Aire', status: 'active', color: '#C9A84C' },
+  { name: 'Éter', model: 'Perplexity', element: '✨ Éter', status: 'active', color: '#C9A84C' },
+  { name: 'Metal', model: 'ChatGPT', element: '⚔️ Metal', status: 'active', color: '#C9A84C' },
 ];
 
 // Archivo Vivo sessions
