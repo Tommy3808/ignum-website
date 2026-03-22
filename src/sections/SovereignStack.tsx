@@ -12,9 +12,9 @@ const pillars = [
   {
     icon: Cpu,
     name: 'Silicon',
-    detail: 'H200 + Blackwell clusters operational in Mexico',
-    metric: 'Live Today',
-    description: 'NVIDIA H200 SXM5 deployed on Mexican soil. Blackwell-ready infrastructure.',
+    detail: 'H200 141GB + Blackwell clusters — Celaya deployment underway',
+    metric: 'Deploying 2026',
+    description: 'NVIDIA H200 SXM5 141GB acquired. Deployment to Cuadritos campus underway.',
   },
   {
     icon: Shield,

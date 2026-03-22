@@ -113,7 +113,7 @@ export default function Investors() {
                   { 
                     num: '04', 
                     title: 'Proof, Not Promise', 
-                    detail: 'H200 + Blackwell hardware acquired and on-site. 45-hectare industrial campus since 2016 — neighbors include Mazda, Toyota, Honda, Pirelli. $250M MXN already invested in park infrastructure.' 
+                    detail: 'H200 141GB + Blackwell hardware acquired — installation underway. 45-hectare industrial campus since 2016 — neighbors include Mazda, Toyota, Honda, Pirelli. $250M MXN already invested in park infrastructure.' 
                   },
                 ].map((point) => (
                   <div key={point.num} className="border-b border-gold/10 pb-8">
@@ -353,7 +353,7 @@ export default function Investors() {
                     phase: 'Operational', 
                     date: 'Now', 
                     gpus: '4 GPUs', 
-                    detail: 'H200 + Blackwell on-site at 45 ha campus. ~2 MW allocated.',
+                    detail: 'H200 141GB acquired — deploying to 45 ha campus. ~2 MW allocated.',
                     status: 'active',
                     milestones: ['IGNUM Bajío Energy SAPI', '~2 MW of 7.3 MW', 'Kubernetes live']
                   },

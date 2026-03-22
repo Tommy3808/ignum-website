@@ -4,7 +4,7 @@ import { MapPin, Zap, Droplets, Server, CheckCircle } from 'lucide-react';
 const infrastructureFacts = [
   { icon: MapPin, label: 'Location', value: 'Parque Industrial Cuadritos, Celaya, Guanajuato' },
   { icon: Zap, label: 'Power', value: '7.3 MW cogeneration capacity' },
-  { icon: Server, label: 'Compute', value: 'H200 SXM5 clusters operational' },
+  { icon: Server, label: 'Compute', value: 'H200 SXM5 clusters — deployment in progress' },
   { icon: Droplets, label: 'Cooling', value: 'Direct-to-chip CaaS @ 7°C' },
 ];
 
@@ -73,7 +73,7 @@ export default function Infrastructure() {
               Real. Operational. <span className="text-gradient-gold">Now.</span>
             </h2>
             <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              Not a roadmap slide. Not a render. Hardware running in Mexican territory today.
+              Hardware acquired. Infrastructure being deployed at Cuadritos campus.
             </p>
           </div>
 
