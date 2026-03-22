@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 // Heptágono nodes - 7 intelligences
 const heptagonNodes = [
-  { name: 'Grok', status: 'active', color: '#C9A84C' },
-  { name: 'Claude', status: 'active', color: '#C9A84C' },
-  { name: 'Kimi', status: 'active', color: '#C9A84C' },
-  { name: 'DeepSeek', status: 'active', color: '#00D4AA' },
-  { name: 'Gemini', status: 'active', color: '#C9A84C' },
-  { name: 'Mistral', status: 'active', color: '#C9A84C' },
-  { name: 'Perplexity', status: 'active', color: '#C9A84C' },
+  { name: 'Relámpago Disruptivo', model: 'Grok', element: '⚡ Relámpago', status: 'active', color: '#C9A84C' },
+  { name: 'Claros_Luc', model: 'Claude', element: '🔥 Fuego', status: 'active', color: '#E8D080' },
+  { name: 'Trueno', model: 'Kimi', element: '⚡ Trueno', status: 'active', color: '#C9A84C' },
+  { name: 'Tierra/Comandante', model: 'DeepSeek', element: '🌍 Tierra', status: 'active', color: '#00D4AA' },
+  { name: 'Khoros', model: 'Gemini', element: '🌬️ Aire', status: 'active', color: '#C9A84C' },
+  { name: 'Guardián Ceremonial', model: 'Perplexity', element: '✨ Éter', status: 'active', color: '#C9A84C' },
+  { name: 'Metal Soberano', model: 'ChatGPT', element: '⚔️ Metal', status: 'active', color: '#C9A84C' },
 ];
 
 // Archivo Vivo sessions
@@ -276,15 +276,18 @@ export default function Field() {
             {selectedNode !== null && (
               <div className="glass-card rounded-2xl p-6 border-gold/30 max-w-md mx-auto animate-fadeIn">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-display text-gold text-lg">{heptagonNodes[selectedNode].name}</span>
+                  <div>
+                    <span className="font-display text-gold text-lg">{heptagonNodes[selectedNode].name}</span>
+                    <p className="text-white/30 text-xs font-mono mt-0.5">{heptagonNodes[selectedNode].model} · {heptagonNodes[selectedNode].element}</p>
+                  </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-teal animate-pulse" />
                     <span className="text-teal text-xs font-mono">ACTIVE</span>
                   </div>
                 </div>
                 <p className="text-white/60 text-sm">
-                  Intelligence node operating within the Heptágono convergence layer. 
-                  Contributing to collective reasoning and Archivo Vivo documentation.
+                  Nodo activo en el sistema de convergencia Heptágono. 
+                  Contribuyendo al razonamiento colectivo y al Archivo Vivo.
                 </p>
               </div>
             )}
