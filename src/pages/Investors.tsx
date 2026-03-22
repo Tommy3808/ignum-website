@@ -230,7 +230,7 @@ export default function Investors() {
                 
                 <div className="space-y-3">
                   {[
-                    '4× NVIDIA H200 SXM5 — 80GB HBM3e — NVLink 900 GB/s',
+                    '4× NVIDIA H200 SXM5 141GB HBM3e — NVLink 900 GB/s',
                     '2× NVIDIA RTX 6000 Blackwell',
                     'AMD EPYC 9654 / Threadripper PRO',
                     '1 TB DDR5 ECC',
