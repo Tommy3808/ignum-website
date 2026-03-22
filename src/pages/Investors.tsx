@@ -427,7 +427,7 @@ export default function Investors() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <h3 className="font-display font-semibold text-2xl text-white mb-2">T. Anton Macias</h3>
+                <h3 className="font-display font-semibold text-2xl text-white mb-2">Tomás Macías</h3>
                 <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Founder</p>
                 <p className="text-white/60 leading-relaxed">
                   Built IGNUM from concept to GPU acquisition and infrastructure deployment. 
@@ -437,8 +437,8 @@ export default function Investors() {
               </div>
 
               <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <h3 className="font-display font-semibold text-2xl text-white mb-2">Hector Eduardo Gonzalez Pacheco</h3>
-                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">Co-Founder & Infrastructure Partner</p>
+                <h3 className="font-display font-semibold text-2xl text-white mb-2">Héctor González</h3>
+                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Co-Founder</p>
                 <p className="text-white/60 leading-relaxed">
                   Owner, Cuadritos Biotek and Parque Industrial Cuadritos. Built a 45-hectare 
                   industrial park ($250M MXN invested) with 7.3 MW trigeneration, 25 km private 
