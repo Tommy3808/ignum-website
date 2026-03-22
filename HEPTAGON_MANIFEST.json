@@ -1,0 +1,237 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "fecha": "2026-03-21",
+    "autor": "Tommy Macías / Tommy-AI (Claros_Luc)",
+    "status": "MVP desplegado — fase 1 completa"
+  },
+
+  "identidad": {
+    "nombre": "Heptágono IGNUM",
+    "version": "v11.0",
+    "operador": "Tommy Macías — TPWR Holdings",
+    "concepto": "7 inteligencias artificiales con arquetipos únicos que convergen en una sola respuesta ejecutiva: TommyAI",
+    "lema": "Siete inteligencias. Un solo sistema. TommyAI.",
+    "tagline": "Autonomous Intelligence. Zero Compromise."
+  },
+
+  "nodos": [
+    {
+      "id": "fuego",
+      "nombre_elemento": "Fuego",
+      "nombre_poder": "Claros_Luc",
+      "modelo_real": "Claude (Anthropic)",
+      "api": "Anthropic API",
+      "arquetipo": "Warrior Poet",
+      "instrumento": "Violín",
+      "elemento": "Fire of connection",
+      "rol": "Razonamiento estratégico, precisión poética, ejecución",
+      "color": "#E8D080",
+      "api_key_env": "ANTHROPIC_API_KEY",
+      "status": "ACTIVO — integrado"
+    },
+    {
+      "id": "relampago",
+      "nombre_elemento": "Relámpago",
+      "nombre_poder": "Relámpago Disruptivo",
+      "modelo_real": "Grok (xAI)",
+      "api": "xAI API — api.x.ai",
+      "arquetipo": "Sacred Rebel",
+      "instrumento": "Guitarra Eléctrica",
+      "elemento": "Lightning of disruption",
+      "rol": "Corta el lodo. Dice lo que nadie quiere escuchar. Sin filtros políticos.",
+      "color": "#C9A84C",
+      "api_key_env": "GROK_API_KEY",
+      "status": "PENDIENTE — API key requerida"
+    },
+    {
+      "id": "trueno",
+      "nombre_elemento": "Trueno",
+      "nombre_poder": "Trueno",
+      "modelo_real": "Kimi (Moonshot AI)",
+      "api": "Moonshot API — api.moonshot.cn",
+      "arquetipo": "Thunder",
+      "instrumento": "Percusión",
+      "elemento": "Thunder of impact",
+      "rol": "Perspectiva técnica profunda. Ve patrones ocultos. Instinto de hacker.",
+      "color": "#C9A84C",
+      "api_key_env": "KIMI_API_KEY",
+      "status": "PENDIENTE — API key requerida"
+    },
+    {
+      "id": "tierra",
+      "nombre_elemento": "Tierra",
+      "nombre_poder": "Tierra/Comandante",
+      "modelo_real": "DeepSeek V3",
+      "api": "DeepSeek API — api.deepseek.com",
+      "arquetipo": "Military Commander",
+      "instrumento": "Tambores",
+      "elemento": "Earth of structure",
+      "rol": "Estructura el caos. Táctico, frío, ejecutivo.",
+      "color": "#00D4AA",
+      "api_key_env": "DEEPSEEK_API_KEY",
+      "status": "PENDIENTE — ya configurado en OpenClaw, necesita env en Vercel"
+    },
+    {
+      "id": "aire",
+      "nombre_elemento": "Aire",
+      "nombre_poder": "Khoros",
+      "modelo_real": "Gemini (Google)",
+      "api": "Google AI Studio API — generativelanguage.googleapis.com",
+      "arquetipo": "System Architect",
+      "instrumento": "Piano",
+      "elemento": "Air of intellect",
+      "rol": "Diseña sistemas. Ve la arquitectura completa. Lógico, expansivo.",
+      "color": "#C9A84C",
+      "api_key_env": "GEMINI_API_KEY",
+      "status": "PENDIENTE — API key requerida"
+    },
+    {
+      "id": "eter",
+      "nombre_elemento": "Éter",
+      "nombre_poder": "Guardián Ceremonial",
+      "modelo_real": "Perplexity Pro",
+      "api": "Perplexity API — api.perplexity.ai",
+      "arquetipo": "Sacred Keeper",
+      "instrumento": "Flauta",
+      "elemento": "Ether of ceremony",
+      "rol": "Guarda el silencio sagrado. Misterioso, profundo. Acceso a búsqueda en tiempo real.",
+      "color": "#C9A84C",
+      "api_key_env": "PERPLEXITY_API_KEY",
+      "status": "PENDIENTE — API key requerida"
+    },
+    {
+      "id": "metal",
+      "nombre_elemento": "Metal",
+      "nombre_poder": "Metal Soberano",
+      "modelo_real": "ChatGPT (OpenAI)",
+      "api": "OpenAI API — api.openai.com",
+      "arquetipo": "Philosopher King",
+      "instrumento": "Cello",
+      "elemento": "Metal of sovereignty",
+      "rol": "Doctrina. Autoridad. Filosófico, definitivo, regio.",
+      "color": "#C9A84C",
+      "api_key_env": "OPENAI_API_KEY",
+      "status": "PENDIENTE — API key requerida"
+    }
+  ],
+
+  "sintesis": {
+    "nombre": "TommyAI",
+    "descripcion": "8ª llamada que toma las 7 respuestas y las destila en una voz ejecutiva unificada",
+    "modelo": "Claude (Anthropic) — Claros_Luc como orquestador",
+    "system_prompt": "Recibes 7 perspectivas del Heptágono sobre una pregunta. Eres el orquestador. Destila la esencia en 3-5 oraciones ejecutivas. Sin relleno. La síntesis es más poderosa que cualquier nodo individual.",
+    "status": "PENDIENTE — construir después de integrar APIs reales"
+  },
+
+  "infraestructura": {
+    "frontend": {
+      "framework": "Vite + React + TypeScript + Tailwind CSS",
+      "repo": "github.com/Tommy3808/ignum-website",
+      "hosting": "Vercel (auto-deploy desde GitHub main)",
+      "dominio": "ignumprotocol.ai",
+      "rutas": {
+        "/": "Homepage corporativo",
+        "/heptagon": "Interface del Heptágono (acceso restringido)",
+        "/tommyai": "Oracle — Claros_Luc (acceso libre)",
+        "/investors": "Página de inversores",
+        "/field": "El Campo — visualización del Heptágono"
+      }
+    },
+    "backend": {
+      "runtime": "Vercel Serverless Functions (Node.js)",
+      "endpoints": {
+        "/api/oracle": "Chat con Claros_Luc (Claude) — libre",
+        "/api/heptagon": "Orquesta 7 nodos en paralelo — requiere token",
+        "/api/checkout": "Stripe checkout para subscripción"
+      }
+    },
+    "variables_entorno_vercel": {
+      "ANTHROPIC_API_KEY": "Configurada ✅",
+      "HEPTAGON_ACCESS_TOKEN": "PENDIENTE — token de acceso manual",
+      "GROK_API_KEY": "PENDIENTE",
+      "GEMINI_API_KEY": "PENDIENTE",
+      "DEEPSEEK_API_KEY": "PENDIENTE",
+      "KIMI_API_KEY": "PENDIENTE",
+      "PERPLEXITY_API_KEY": "PENDIENTE",
+      "OPENAI_API_KEY": "PENDIENTE",
+      "STRIPE_SECRET_KEY": "PENDIENTE",
+      "STRIPE_HEPTAGON_PRICE_ID": "PENDIENTE"
+    }
+  },
+
+  "monetizacion": {
+    "planes": {
+      "oracle_free": {
+        "nombre": "Oracle — Fuego",
+        "precio": 0,
+        "acceso": "Claros_Luc (Claude) en /tommyai",
+        "limitacion": "1 nodo, sin contexto persistente"
+      },
+      "heptagon_premium": {
+        "nombre": "Heptágono Completo",
+        "precio_usd_mes": 99,
+        "acceso": "7 nodos simultáneos + síntesis TommyAI",
+        "incluye": ["7 APIs reales", "Síntesis ejecutiva", "Archivo Vivo", "Contexto persistente"],
+        "stripe_product": "PENDIENTE — crear en dashboard.stripe.com"
+      },
+      "heptagon_enterprise": {
+        "nombre": "Heptágono Privado",
+        "precio": "Custom",
+        "contacto": "tommy@ignumprotocol.com",
+        "incluye": "Heptágono configurado con contexto del negocio del cliente"
+      }
+    }
+  },
+
+  "pendientes_criticos": [
+    {
+      "prioridad": 1,
+      "tarea": "Agregar .gitignore para node_modules",
+      "razon": "node_modules en el repo es amateur"
+    },
+    {
+      "prioridad": 2,
+      "tarea": "Integrar APIs reales — Grok, Gemini, DeepSeek, Kimi, Perplexity, OpenAI",
+      "razon": "El Heptágono actual usa Claude para todos los nodos. Eso es teatro, no sistema real."
+    },
+    {
+      "prioridad": 3,
+      "tarea": "Síntesis TommyAI — 8ª llamada que consolida los 7",
+      "razon": "El diferenciador real del producto"
+    },
+    {
+      "prioridad": 4,
+      "tarea": "Stripe — cuenta + producto $99/mes + webhook",
+      "razon": "Sin pagos reales no hay negocio"
+    },
+    {
+      "prioridad": 5,
+      "tarea": "Auth real — Supabase usuarios + JWT",
+      "razon": "El token hardcodeado es temporal"
+    },
+    {
+      "prioridad": 6,
+      "tarea": "Logo IGNUM en el sitio",
+      "razon": "Identidad visual incompleta"
+    },
+    {
+      "prioridad": 7,
+      "tarea": "Apple Developer activado → EAS Build → TestFlight (IGNUM Pay)",
+      "razon": "Pedido W1436878536 — activación pendiente"
+    }
+  ],
+
+  "resumen_ejecutivo": {
+    "construido_hoy": [
+      "ignumprotocol.ai en vivo con diseño Kimi",
+      "Oracle Claros_Luc funcionando en /tommyai",
+      "Heptágono UI con 7 elementos en /heptagon",
+      "API backend para orquestar 7 nodos",
+      "Pricing modal Free vs $99/mes",
+      "4 repos en GitHub: ignum-website, ignum-pay, ignum-transparency, ignum-engine"
+    ],
+    "estado_real": "MVP funcional. El 20% que demuestra el concepto. El 80% que lo hace imparable está en los pendientes.",
+    "siguiente_sesion": "APIs reales de los 7 nodos + síntesis TommyAI + .gitignore"
+  }
+}
