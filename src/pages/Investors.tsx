@@ -425,22 +425,22 @@ export default function Investors() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <h3 className="font-display font-semibold text-2xl text-white mb-2">Tomás Macías</h3>
-                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Founder</p>
-                <p className="text-white/60 leading-relaxed">
-                  Built IGNUM from concept to GPU acquisition and infrastructure deployment. 
-                  AI infrastructure architecture, enterprise systems, and strategic execution. 
-                  Leads technology vision, capital strategy, and client relationships.
-                </p>
-              </div>
-
-              <div className="glass-card rounded-2xl p-8 border-gold/20">
                 <h3 className="font-display font-semibold text-2xl text-white mb-2">Héctor González</h3>
                 <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Co-Founder</p>
                 <p className="text-white/60 leading-relaxed">
                   Owner, Cuadritos Biotek and Parque Industrial Cuadritos. Built a 45-hectare 
                   industrial park ($250M MXN invested) with 7.3 MW trigeneration, 25 km private 
                   gas pipeline, and authorization to scale to 100 MW.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-2xl p-8 border-gold/20">
+                <h3 className="font-display font-semibold text-2xl text-white mb-2">Tomás Macías</h3>
+                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Founder</p>
+                <p className="text-white/60 leading-relaxed">
+                  Built IGNUM from concept to GPU acquisition and infrastructure deployment. 
+                  AI infrastructure architecture, enterprise systems, and strategic execution. 
+                  Leads technology vision, capital strategy, and client relationships.
                 </p>
               </div>
             </div>
@@ -500,11 +500,11 @@ export default function Investors() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="mailto:tommy@ignumprotocol.com" className="btn-gold">
-                tommy@ignumprotocol.com
-              </a>
-              <a href="mailto:hgonzalez@ignumprotocol.com" className="btn-outline">
+              <a href="mailto:hgonzalez@ignumprotocol.com" className="btn-gold">
                 hgonzalez@ignumprotocol.com
+              </a>
+              <a href="mailto:tommy@ignumprotocol.com" className="btn-outline">
+                tommy@ignumprotocol.com
               </a>
             </div>
 
