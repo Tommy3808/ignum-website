@@ -567,7 +567,8 @@ export default function Investors() {
                       </div>
                     ))}
                   </div>
-                  <a href="mailto:tommy@ignumprotocol.com?subject=Energy Tokenization — $IGNUM"
+                  <a 
+                    href="/acceso"
                     className="inline-block text-sm text-gold border border-gold/30 px-4 py-2 rounded-lg hover:bg-gold/10 transition-colors font-mono">
                     Request $IGNUM Details →
                   </a>
