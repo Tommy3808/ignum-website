@@ -175,7 +175,7 @@ async function callGroq(question: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'dolphin-2.9-llama3-8b',
       messages: [{ role: 'system', content: PROMPTS.eter }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.9,
     }),
