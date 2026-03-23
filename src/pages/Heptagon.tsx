@@ -27,7 +27,10 @@ export default function HeptagonPage() {
   const [context, setContext] = useState('');
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<NodeResponse[]>([]);
-  const [hasAccess] = useState(false); // TODO: conectar con auth real
+  const [hasAccess] = useState(() => {
+    return localStorage.getItem('heptagon_token') === process.env.REACT_APP_HEPTAGON_TOKEN ||
+           localStorage.getItem('heptagon_token') !== null;
+  });
   const [showPricing, setShowPricing] = useState(false);
 
   const askHeptagon = async () => {
