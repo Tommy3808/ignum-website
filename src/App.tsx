@@ -4,6 +4,7 @@ import Investors from './pages/Investors';
 import Field from './pages/Field';
 import TommyAI from './pages/TommyAI';
 import HeptagonPage from './pages/Heptagon';
+import RequestAccess from './pages/RequestAccess';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/field" element={<Field />} />
           <Route path="/tommyai" element={<TommyAI />} />
           <Route path="/heptagon" element={<HeptagonPage />} />
+          <Route path="/acceso" element={<RequestAccess />} />
         </Routes>
       </div>
     </Router>
