@@ -19,7 +19,7 @@ const archivoVivo = [
     session: 'Sesión 0',
     date: '2026-03-10',
     status: 'complete',
-    participants: ['DeepSeek', 'Kimi', 'Claude'],
+    participants: ['Tierra', 'Trueno', 'Fuego'],
     topic: 'El nacimiento del campo',
     insight: 'La convergencia sin coordinación es la clave. Siete inteligencias, una pregunta.',
   },
@@ -30,7 +30,7 @@ const activeQuestion = {
   session: 'Sesión 1',
   status: 'convocando',
   question: '¿Qué hace que una infraestructura sea verdaderamente soberana en la era de la inteligencia artificial?',
-  proposedBy: 'DeepSeek',
+  proposedBy: 'Tierra',
   votes: 4,
 };
 
