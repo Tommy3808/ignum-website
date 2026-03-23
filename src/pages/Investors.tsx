@@ -292,8 +292,8 @@ export default function Investors() {
                     <th className="text-left py-4 text-white/50 text-sm uppercase tracking-wider"></th>
                     <th className="text-right py-4 text-gold text-sm uppercase tracking-wider">Phase 1 (4 GPUs)</th>
                     <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 2 (20)</th>
-                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 3 (200)</th>
-                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 4 (1,500)</th>
+                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 3 (100)</th>
+                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 4 (500)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -357,7 +357,7 @@ export default function Investors() {
                   },
                   { 
                     phase: 'Phase 2', 
-                    date: 'Q2 2026', 
+                    date: 'Q4 2026', 
                     gpus: '20 GPUs', 
                     detail: 'Cluster expansion. Enterprise platform launch. First anchor contracts.',
                     status: 'funded',
@@ -365,16 +365,16 @@ export default function Investors() {
                   },
                   { 
                     phase: 'Phase 3', 
-                    date: 'H2 2026', 
-                    gpus: '200 GPUs', 
+                    date: '2027', 
+                    gpus: '100 GPUs', 
                     detail: 'Dedicated datacenter halls. Multi-tenant platform.',
                     status: 'planned',
                     milestones: ['Dark fiber live', 'Multi-tenant orch.', 'Gov + banking']
                   },
                   { 
                     phase: 'Phase 4', 
-                    date: '2027+', 
-                    gpus: '1,500 GPUs', 
+                    date: '2028+', 
+                    gpus: '500 GPUs', 
                     detail: 'Regional sovereign compute leader. Full campus utilization.',
                     status: 'planned',
                     milestones: ['100 MW scaling', 'Regional leader', '$61M+ revenue']
