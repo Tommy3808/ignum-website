@@ -126,7 +126,7 @@ async function callKimi(question: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.KIMI_API_KEY}` },
     body: JSON.stringify({
-      model: 'moonshot-v1-128k',
+      model: 'kimi-latest',
       messages: [{ role: 'system', content: PROMPTS.trueno }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.8,
     }),
