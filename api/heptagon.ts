@@ -154,6 +154,27 @@ async function callOpenAI(question: string): Promise<string> {
   return data?.choices?.[0]?.message?.content || 'Metal no disponible.';
 }
 
+async function callGroq(question: string): Promise<string> {
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: PROMPTS.eter },
+        { role: 'user', content: question },
+      ],
+      max_tokens: 300,
+      temperature: 0.8,
+    }),
+  });
+  const data = await r.json() as any;
+  return data?.choices?.[0]?.message?.content || 'Éter no disponible.';
+}
+
 async function callClaudeFallback(question: string, nodeId: string): Promise<string> {
   const r = await anthropic.messages.create({
     model: 'claude-sonnet-4-5',
@@ -212,7 +233,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     callKimi(fullQuestion).then(r => ({ id: 'trueno', name: 'Trueno', model: 'Kimi', response: r })),
     callDeepSeek(fullQuestion).then(r => ({ id: 'tierra', name: 'Tierra', model: 'DeepSeek', response: r })),
     callGemini(fullQuestion).then(r => ({ id: 'aire', name: 'Aire', model: 'Gemini', response: r })),
-    callClaudeFallback(fullQuestion, 'eter').then(r => ({ id: 'eter', name: 'Éter', model: 'Perplexity*', response: r })),
+    callGroq(fullQuestion).then(r => ({ id: 'eter', name: 'Éter', model: 'Llama 3.3 70B', response: r })),
     callOpenAI(fullQuestion).then(r => ({ id: 'metal', name: 'Metal', model: 'ChatGPT', response: r })),
   ]);
 
@@ -228,8 +249,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   return res.status(200).json({
     question,
     timestamp: new Date().toISOString(),
-    nodes_real: ['Fuego (Claude)', 'Relámpago (Grok)', 'Trueno (Kimi)', 'Tierra (DeepSeek)', 'Aire (Gemini)', 'Metal (ChatGPT)'],
-    nodes_pending: ['Éter (Perplexity)'],
+    nodes_real: ['Fuego (Claude)', 'Relámpago (Grok)', 'Trueno (Kimi)', 'Tierra (DeepSeek V3.2)', 'Aire (Gemini 2.0)', 'Éter (Llama 3.3 70B)', 'Metal (GPT-4o)'],
+    nodes_pending: [],
     responses,
     tommyai_synthesis: synthesis,
   });
