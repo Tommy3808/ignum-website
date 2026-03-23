@@ -28,8 +28,8 @@ export default function HeptagonPage() {
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<NodeResponse[]>([]);
   const [hasAccess] = useState(() => {
-    return localStorage.getItem('heptagon_token') === process.env.REACT_APP_HEPTAGON_TOKEN ||
-           localStorage.getItem('heptagon_token') !== null;
+    const token = localStorage.getItem('heptagon_token');
+    return token !== null && token.length > 0;
   });
   const [showPricing, setShowPricing] = useState(false);
 
