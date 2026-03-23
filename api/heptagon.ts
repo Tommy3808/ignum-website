@@ -111,7 +111,7 @@ async function callGrok(question: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROK_API_KEY}` },
     body: JSON.stringify({
-      model: 'grok-2-1212',
+      model: 'grok-4-1-fast',
       messages: [{ role: 'system', content: PROMPTS.relampago }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.9,
     }),
