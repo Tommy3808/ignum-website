@@ -27,10 +27,22 @@ export default function HeptagonPage() {
   const [context, setContext] = useState('');
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<NodeResponse[]>([]);
-  const [hasAccess] = useState(() => {
+  const [hasAccess, setHasAccess] = useState(() => {
     const token = localStorage.getItem('heptagon_token');
     return token !== null && token.length > 0;
   });
+  const [tokenInput, setTokenInput] = useState('');
+  const [tokenError, setTokenError] = useState(false);
+
+  const handleTokenSubmit = () => {
+    if (tokenInput.trim()) {
+      localStorage.setItem('heptagon_token', tokenInput.trim());
+      setHasAccess(true);
+      setTokenError(false);
+    } else {
+      setTokenError(true);
+    }
+  };
   const [showPricing, setShowPricing] = useState(false);
 
   const askHeptagon = async () => {
@@ -123,7 +135,32 @@ export default function HeptagonPage() {
             })}
           </div>
 
-          {/* Input */}
+          {/* Token Input para acceso */}
+          {!hasAccess && (
+            <div className="text-center py-16 border border-gold/10 rounded-3xl bg-gold/5 mb-8 max-w-md mx-auto">
+              <Lock size={32} className="text-gold/40 mx-auto mb-4" />
+              <p className="text-white/60 text-sm mb-6">Ingresa tu clave de acceso</p>
+              <div className="flex gap-2 px-4">
+                <input
+                  type="password"
+                  value={tokenInput}
+                  onChange={e => setTokenInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleTokenSubmit()}
+                  placeholder="Clave de acceso..."
+                  className={`flex-1 bg-white/5 border ${tokenError ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold/40 transition-colors`}
+                />
+                <button
+                  onClick={handleTokenSubmit}
+                  className="bg-gold text-black font-bold px-4 py-3 rounded-xl hover:bg-gold-glow transition-colors text-sm"
+                >
+                  Entrar
+                </button>
+              </div>
+              {tokenError && <p className="text-red-400 text-xs mt-2">Clave incorrecta</p>}
+            </div>
+          )}
+
+        {/* Input */}
           {hasAccess ? (
             <div className="space-y-4 mb-8">
               <textarea
