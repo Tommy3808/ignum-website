@@ -69,6 +69,11 @@ async function callGrok(question: string): Promise<string> {
       temperature: 0.7,
     }),
   });
+  if (!r.ok) {
+    const err = await r.text();
+    console.error('Grok error:', r.status, err.slice(0, 200));
+    return `Relámpago: error ${r.status}`;
+  }
   const data = await r.json() as any;
   return data?.choices?.[0]?.message?.content || 'Relámpago no disponible.';
 }
