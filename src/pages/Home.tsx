@@ -180,14 +180,20 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 gap-4 text-left">
             {[
-              { t: 'Energy Sovereignty', d: '$0.038–0.045/kWh internal PPA. 25 km private gas pipeline. Off-grid capable in <2 min. Not a contract — ownership-level access.' },
-              { t: 'Jurisdiction', d: 'Mexican law only. SAPI de CV structure. No CLOUD Act exposure. No US/EU data governance risk. Sovereign by design, not by policy.' },
-              { t: 'Industrial Permits', d: 'Full permits: Industrial, CRE, SEMARNAT, water, gas. Grandfathered status since 2016. New entrants face 3–5 year permitting cycles.' },
-              { t: 'Physical Moat', d: '45 ha campus. Neighbors: Mazda, Toyota, Honda, Pirelli. 400 GbE + dark fiber IRU. <2ms latency to Querétaro financial hub.' },
+              { t: 'Energy Sovereignty', d: '$0.038–0.045/kWh internal PPA. 25 km private gas pipeline. Off-grid capable in <2 min. Not a contract — ownership-level access.', img: '/images/power-plant.jpg' },
+              { t: 'Jurisdiction', d: 'Mexican law only. SAPI de CV structure. No CLOUD Act exposure. No US/EU data governance risk. Sovereign by design, not by policy.', img: '/images/vault.jpg' },
+              { t: 'Industrial Permits', d: 'Full permits: Industrial, CRE, SEMARNAT, water, gas. Since 2016. New entrants face 3–5 year permitting cycles.', img: '/images/gateway.jpg' },
+              { t: 'Physical Moat', d: '45 ha campus. Neighbors: Mazda, Toyota, Honda, Pirelli. 400 GbE + dark fiber IRU. <2ms latency to Querétaro financial hub.', img: '/images/datacenter.jpg' },
             ].map(m => (
-              <div key={m.t} className="p-5 rounded-xl border border-white/5 bg-white/3">
-                <p className="font-semibold text-gold text-sm mb-2">{m.t}</p>
-                <p className="text-white/50 text-xs leading-relaxed">{m.d}</p>
+              <div key={m.t} className="rounded-xl border border-white/5 overflow-hidden">
+                <div className="h-32 relative">
+                  <img src={m.img} alt={m.t} className="w-full h-full object-cover opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                </div>
+                <div className="p-4">
+                  <p className="font-semibold text-gold text-sm mb-2">{m.t}</p>
+                  <p className="text-white/50 text-xs leading-relaxed">{m.d}</p>
+                </div>
               </div>
             ))}
           </div>
