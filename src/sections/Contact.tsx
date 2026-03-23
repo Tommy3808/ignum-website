@@ -98,10 +98,10 @@ export default function Contact() {
                     <div>
                       <p className="text-white/40 text-sm mb-1">Email</p>
                       <a 
-                        href="mailto:anton@ignumprotocol.com" 
+                        href="mailto:tommy@ignumprotocol.com" 
                         className="text-white hover:text-gold transition-colors font-mono"
                       >
-                        anton@ignumprotocol.com
+                        tommy@ignumprotocol.com
                       </a>
                     </div>
                   </div>

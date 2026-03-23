@@ -502,8 +502,8 @@ export default function Investors() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="mailto:anton@ignumprotocol.com" className="btn-gold">
-                anton@ignumprotocol.com
+              <a href="mailto:tommy@ignumprotocol.com" className="btn-gold">
+                tommy@ignumprotocol.com
               </a>
               <a href="mailto:hector@ignumprotocol.com" className="btn-outline">
                 hector@ignumprotocol.com
