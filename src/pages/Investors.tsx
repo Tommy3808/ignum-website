@@ -231,9 +231,7 @@ export default function Investors() {
                 <div className="space-y-3">
                   {[
                     '4× NVIDIA H200 SXM5 141GB HBM3e — NVLink 900 GB/s',
-                    '2× NVIDIA RTX 6000 Blackwell',
-                    'AMD Threadripper PRO',
-                    '1 TB DDR5 ECC',
+                    '2× NVIDIA RTX 6000 Pro Blackwell',
                     '400 GbE + enterprise switching',
                     'NVMe Enterprise — RAID Z3 (ZFS)',
                     'Dual PSU — UPS backup',
