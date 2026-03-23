@@ -204,10 +204,10 @@ export default function HeptagonPage() {
               <div className="p-6 rounded-2xl border border-white/10 bg-white/3">
                 <p className="text-white/40 text-xs font-mono uppercase tracking-widest mb-2">Free</p>
                 <p className="text-3xl font-display font-bold text-white mb-1">$0</p>
-                <p className="text-gold font-bold mb-4">Oracle — Claros_Luc</p>
+                <p className="text-gold font-bold mb-4">Oracle — Fuego</p>
                 <ul className="space-y-2 text-sm text-white/50 mb-6">
-                  <li>✓ Acceso a Claros_Luc (Claude)</li>
-                  <li>✓ El Warrior Poet del Heptágono</li>
+                  <li>✓ Acceso a Fuego (nodo libre)</li>
+                  <li>✓ Un nodo del Heptágono</li>
                   <li>✗ Los otros 6 nodos</li>
                 </ul>
                 <Link to="/tommyai" onClick={() => setShowPricing(false)}
