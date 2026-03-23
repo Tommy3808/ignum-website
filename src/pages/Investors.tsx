@@ -505,8 +505,8 @@ export default function Investors() {
               <a href="mailto:tommy@ignumprotocol.com" className="btn-gold">
                 tommy@ignumprotocol.com
               </a>
-              <a href="mailto:hector@ignumprotocol.com" className="btn-outline">
-                hector@ignumprotocol.com
+              <a href="mailto:hgonzalez@ignumprotocol.com" className="btn-outline">
+                hgonzalez@ignumprotocol.com
               </a>
             </div>
 
