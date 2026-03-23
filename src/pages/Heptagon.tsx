@@ -114,7 +114,7 @@ export default function HeptagonPage() {
                     <Icon size={16} style={{ color: node.color }} />
                   </div>
                   <p className="text-xs text-white/50 text-center leading-tight font-mono">{node.name.split(' ')[0]}</p>
-                  <p className="text-xs text-white/20 text-center">{node.model}</p>
+                  
                 </div>
               );
             })}
@@ -177,7 +177,7 @@ export default function HeptagonPage() {
                     <span className="font-display font-bold text-sm" style={{ color: nodeColor(r.node_id) }}>
                       {r.name}
                     </span>
-                    <span className="text-white/20 text-xs font-mono">{r.model} · {r.element}</span>
+                    <span className="text-white/20 text-xs font-mono">{r.element}</span>
                   </div>
                   {r.response ? (
                     <p className="text-white/70 leading-relaxed">{r.response}</p>
