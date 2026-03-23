@@ -60,7 +60,7 @@ async function callGrok(question: string): Promise<string> {
       'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'grok-3',
+      model: 'grok-2-1212',
       messages: [
         { role: 'system', content: PROMPTS.relampago },
         { role: 'user', content: question },
@@ -125,7 +125,7 @@ async function callDeepSeek(question: string): Promise<string> {
       'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'deepseek-v3',
+      model: 'deepseek-chat',
       messages: [
         { role: 'system', content: PROMPTS.tierra },
         { role: 'user', content: question },
