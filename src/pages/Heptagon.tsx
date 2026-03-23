@@ -49,6 +49,7 @@ export default function HeptagonPage() {
     if (!question.trim() || loading) return;
     setLoading(true);
     setResponses([]);
+    setQuestion('');
 
     try {
       const res = await fetch('/api/heptagon', {
