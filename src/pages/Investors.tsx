@@ -540,6 +540,41 @@ export default function Investors() {
               </div>
             </div>
 
+            {/* Energy Tokenization */}
+            <div className="mt-12 p-8 rounded-2xl border border-gold/20 bg-gold/5">
+              <div className="flex items-start gap-6">
+                <div className="text-3xl">⚡</div>
+                <div>
+                  <p className="text-gold text-xs font-mono uppercase tracking-widest mb-2">Energy Asset Tokenization — In Development</p>
+                  <h3 className="font-display font-bold text-2xl text-white mb-3">
+                    $IGNUM — Tokenized Sovereign Energy
+                  </h3>
+                  <p className="text-white/60 leading-relaxed mb-4">
+                    IGNUM Bajío Energy SAPI is developing an on-chain instrument to tokenize 
+                    sovereign Mexican energy production. Built on Base L2. Each token represents 
+                    a claim on verified kWh generated at the Cuadritos campus — real-world asset 
+                    (RWA) backed by 7.3 MW of operating cogeneration infrastructure.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 mb-4">
+                    {[
+                      { label: 'Backing', value: '7.3 MW live' },
+                      { label: 'Chain', value: 'Base L2' },
+                      { label: 'Structure', value: 'IGNUM Bajío SAPI' },
+                    ].map(s => (
+                      <div key={s.label} className="text-center">
+                        <p className="text-gold font-bold text-sm">{s.value}</p>
+                        <p className="text-white/30 text-xs">{s.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <a href="mailto:tommy@ignumprotocol.com?subject=Energy Tokenization — $IGNUM"
+                    className="inline-block text-sm text-gold border border-gold/30 px-4 py-2 rounded-lg hover:bg-gold/10 transition-colors font-mono">
+                    Request $IGNUM Details →
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <div className="mt-8 pt-8 border-t border-white/5 text-center">
               <p className="text-white/20 text-xs max-w-3xl mx-auto">
                 This website contains forward-looking statements regarding IGNUM's planned infrastructure 
