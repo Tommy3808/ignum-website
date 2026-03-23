@@ -222,7 +222,7 @@ export default function HeptagonPage() {
                   RECOMENDADO
                 </div>
                 <p className="text-gold/60 text-xs font-mono uppercase tracking-widest mb-2">Premium</p>
-                <p className="text-3xl font-display font-bold text-white mb-1">$99<span className="text-white/30 text-base">/mes</span></p>
+                <p className="text-3xl font-display font-bold text-white mb-1">$380<span className="text-white/30 text-base">/mes</span></p>
                 <p className="text-gold font-bold mb-4">Heptágono Completo</p>
                 <ul className="space-y-2 text-sm text-white/70 mb-6">
                   <li>✓ Los 7 nodos simultáneos</li>
