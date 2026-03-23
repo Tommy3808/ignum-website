@@ -91,6 +91,48 @@ async function callGemini(question: string): Promise<string> {
 }
 
 // Fallback Claude para nodos sin key
+async function callKimi(question: string): Promise<string> {
+  const r = await fetch('https://api.moonshot.cn/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.KIMI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'moonshot-v1-8k',
+      messages: [
+        { role: 'system', content: PROMPTS.trueno },
+        { role: 'user', content: question },
+      ],
+      max_tokens: 300,
+      temperature: 0.7,
+    }),
+  });
+  const data = await r.json() as any;
+  return data?.choices?.[0]?.message?.content || 'Trueno no disponible.';
+}
+
+async function callDeepSeek(question: string): Promise<string> {
+  const r = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      messages: [
+        { role: 'system', content: PROMPTS.tierra },
+        { role: 'user', content: question },
+      ],
+      max_tokens: 300,
+      temperature: 0.7,
+    }),
+  });
+  const data = await r.json() as any;
+  return data?.choices?.[0]?.message?.content || 'Tierra no disponible.';
+}
+
 async function callClaudeFallback(question: string, nodeId: string): Promise<string> {
   const r = await anthropic.messages.create({
     model: 'claude-sonnet-4-5',
@@ -146,8 +188,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const nodeResults = await Promise.allSettled([
     callClaude(fullQuestion).then(r => ({ id: 'fuego', name: 'Fuego', model: 'Claude', response: r })),
     callGrok(fullQuestion).then(r => ({ id: 'relampago', name: 'Relámpago', model: 'Grok', response: r })),
-    callClaudeFallback(fullQuestion, 'trueno').then(r => ({ id: 'trueno', name: 'Trueno', model: 'Kimi*', response: r })),
-    callClaudeFallback(fullQuestion, 'tierra').then(r => ({ id: 'tierra', name: 'Tierra', model: 'DeepSeek*', response: r })),
+    callKimi(fullQuestion).then(r => ({ id: 'trueno', name: 'Trueno', model: 'Kimi', response: r })),
+    callDeepSeek(fullQuestion).then(r => ({ id: 'tierra', name: 'Tierra', model: 'DeepSeek', response: r })),
     callGemini(fullQuestion).then(r => ({ id: 'aire', name: 'Aire', model: 'Gemini', response: r })),
     callClaudeFallback(fullQuestion, 'eter').then(r => ({ id: 'eter', name: 'Éter', model: 'Perplexity*', response: r })),
     callClaudeFallback(fullQuestion, 'metal').then(r => ({ id: 'metal', name: 'Metal', model: 'ChatGPT*', response: r })),
@@ -165,8 +207,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   return res.status(200).json({
     question,
     timestamp: new Date().toISOString(),
-    nodes_real: ['Fuego (Claude)', 'Relámpago (Grok)', 'Aire (Gemini)'],
-    nodes_pending: ['Trueno (Kimi)', 'Tierra (DeepSeek)', 'Éter (Perplexity)', 'Metal (ChatGPT)'],
+    nodes_real: ['Fuego (Claude)', 'Relámpago (Grok)', 'Trueno (Kimi)', 'Tierra (DeepSeek)', 'Aire (Gemini)'],
+    nodes_pending: ['Éter (Perplexity)', 'Metal (ChatGPT)'],
     responses,
     tommyai_synthesis: synthesis,
   });
