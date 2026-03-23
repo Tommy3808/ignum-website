@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity, ArrowRight, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { Activity, ArrowRight, CheckCircle, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
