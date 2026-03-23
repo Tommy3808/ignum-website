@@ -158,8 +158,9 @@ async function callGemini(question: string): Promise<string> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: PROMPTS.aire }] },
-        contents: [{ parts: [{ text: question }] }],
+        contents: [
+          { role: 'user', parts: [{ text: PROMPTS.aire + '\n\n' + question }] }
+        ],
         generationConfig: { maxOutputTokens: 400, temperature: 0.8 },
       }),
     }
