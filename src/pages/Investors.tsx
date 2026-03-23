@@ -472,7 +472,7 @@ export default function Investors() {
                 'Regional data governance designed for institutional requirements',
                 'Cross-border requests handled under structured legal process',
                 'IGNUM Bajío Energy SAPI de CV — structured for institutional investment',
-                'Grandfathered permits: Industrial, CRE, SEMARNAT, water, gas',
+                'Full permits: Industrial, CRE, SEMARNAT, water, gas',
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 py-3 border-b border-white/5">
                   <div className="w-2 h-2 rounded-full bg-gold" />
