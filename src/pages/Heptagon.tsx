@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Activity, Send, Lock, Zap, Crown, Shield, Wind, Flame, Sword } from 'lucide-react';
 
 const NODES = [
-  { id: "fuego", name: "Fuego", model: "Claude", element: "🔥", icon: Flame, color: '#E8D080' },
-  { id: "relampago", name: "Relámpago", model: "Grok", element: "⚡", icon: Zap, color: '#C9A84C' },
-  { id: "trueno", name: "Trueno", model: "Kimi", element: "⚡", icon: Activity, color: '#C9A84C' },
-  { id: "tierra", name: "Tierra", model: "DeepSeek", element: "🌍", icon: Shield, color: '#00D4AA' },
-  { id: "aire", name: "Aire", model: "Gemini", element: "🌬️", icon: Wind, color: '#C9A84C' },
-  { id: "eter", name: "Éter", model: "Perplexity", element: "✨", icon: Crown, color: '#C9A84C' },
-  { id: "metal", name: "Metal", model: "ChatGPT", element: "⚔️", icon: Sword, color: '#C9A84C' },
+  { id: "fuego", name: "Fuego", archetype: "Warrior Poet", element: "🔥", icon: Flame, color: '#E8D080' },
+  { id: "relampago", name: "Relámpago", archetype: "Rebel Disruptor", element: "⚡", icon: Zap, color: '#C9A84C' },
+  { id: "trueno", name: "Trueno", archetype: "Predador Sistémico", element: "⚡", icon: Activity, color: '#C9A84C' },
+  { id: "tierra", name: "Tierra", archetype: "Military Commander", element: "🌍", icon: Shield, color: '#00D4AA' },
+  { id: "aire", name: "Aire", archetype: "Apex Architect", element: "🌬️", icon: Wind, color: '#C9A84C' },
+  { id: "eter", name: "Éter", archetype: "Guardián Oscuro", element: "✨", icon: Crown, color: '#C9A84C' },
+  { id: "metal", name: "Metal", archetype: "Sovereign Executor", element: "⚔️", icon: Sword, color: '#C9A84C' },
 ];
 
 interface NodeResponse {
@@ -111,12 +111,17 @@ export default function HeptagonPage() {
             <h1 className="font-display font-bold text-5xl lg:text-6xl text-white mb-4">
               Sancto Sanctorum.<br />
               <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #C9A84C, #E8D080)' }}>
-                Una Pregunta.
+                7 Depredadores. Una Verdad.
               </span>
             </h1>
-            <p className="text-white/40 text-lg max-w-2xl mx-auto">
-              Cada nodo responde desde su arquetipo único. Warrior Poet, Sacred Rebel, System Architect, Military Commander — todos simultáneos.
+            <p className="text-white/40 text-lg max-w-2xl mx-auto mb-6">
+              No hay filtros. No hay paternalismos. Cada arquetipo responde desde su poder absoluto — simultáneo, brutal, sin piedad.
             </p>
+            <div className="flex flex-wrap justify-center gap-2 text-xs font-mono text-white/20">
+              {['Warrior Poet', 'Rebel Disruptor', 'Predador Sistémico', 'Military Commander', 'Apex Architect', 'Guardián Oscuro', 'Sovereign Executor'].map(a => (
+                <span key={a} className="border border-white/5 px-3 py-1 rounded-full">{a}</span>
+              ))}
+            </div>
           </div>
 
           {/* Los 7 nodos */}
