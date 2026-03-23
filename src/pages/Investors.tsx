@@ -108,7 +108,7 @@ export default function Investors() {
                   { 
                     num: '03', 
                     title: 'Jurisdictional Moat', 
-                    detail: 'Mexican industrial framework with regional data governance. SAPI de CV structure designed for institutional capital. Grandfathered industrial, CRE, SEMARNAT, water, and gas permits that new entrants cannot replicate.' 
+                    detail: 'Mexican industrial framework with regional data governance. SAPI de CV structure designed for institutional capital. Full industrial, CRE, SEMARNAT, water, and gas permits — a regulatory framework new entrants cannot replicate.' 
                   },
                   { 
                     num: '04', 

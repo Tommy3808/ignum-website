@@ -7,7 +7,7 @@ const pillars = [
     name: 'Energy',
     detail: '7.3 MW cogeneration at fixed internal PPA',
     metric: '$0.038–0.045/kWh',
-    description: 'Own power generation with grandfathered industrial permits. Energy independence as foundation.',
+    description: 'Own power generation with full industrial permits. Energy independence as foundation.',
   },
   {
     icon: Cpu,

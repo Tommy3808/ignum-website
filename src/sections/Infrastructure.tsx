@@ -10,7 +10,7 @@ const infrastructureFacts = [
 
 const capabilities = [
   '15,000 m² industrial campus',
-  'Grandfathered industrial permits',
+  'Full industrial permits',
   '400 GbE + IRU Dark Fiber',
   '<2ms latency to Querétaro',
   'Private PPA power agreement',
