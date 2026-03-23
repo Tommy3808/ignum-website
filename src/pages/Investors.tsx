@@ -232,7 +232,7 @@ export default function Investors() {
                   {[
                     '4× NVIDIA H200 SXM5 141GB HBM3e — NVLink 900 GB/s',
                     '2× NVIDIA RTX 6000 Blackwell',
-                    'Intel Core Ultra 9 275HX (ignum-node)',
+                    'AMD Threadripper PRO',
                     '1 TB DDR5 ECC',
                     '400 GbE + enterprise switching',
                     'NVMe Enterprise — RAID Z3 (ZFS)',
