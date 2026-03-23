@@ -122,11 +122,11 @@ async function callGrok(question: string): Promise<string> {
 }
 
 async function callKimi(question: string): Promise<string> {
-  const r = await fetch('https://api.moonshot.cn/v1/chat/completions', {
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.KIMI_API_KEY}` },
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'kimi-latest',
+      model: 'meta-llama/llama-4-scout-17b-16e-instruct',
       messages: [{ role: 'system', content: PROMPTS.trueno }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.8,
     }),
@@ -175,7 +175,7 @@ async function callGroq(question: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'dolphin-2.9-llama3-8b',
+      model: 'moonshotai/kimi-k2-instruct',
       messages: [{ role: 'system', content: PROMPTS.eter }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.9,
     }),
