@@ -79,7 +79,8 @@ export default function Home() {
 
       {/* HERO — qué vendemos, sin poesía sobrante */}
       <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6 lg:px-12 pt-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian-deep via-obsidian to-obsidian-deep" />
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(/images/datacenter.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.15 }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-obsidian-deep/60 via-obsidian-deep/80 to-obsidian-deep" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] opacity-10 rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.4) 0%, transparent 70%)' }} />
 
