@@ -93,10 +93,10 @@ export default function HeptagonPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 bg-gold/5 mb-6">
-              <span className="text-xs font-mono text-gold tracking-widest uppercase">Heptágono v11.0</span>
+              <span className="text-xs font-mono text-gold tracking-widest uppercase">Sancto Sanctorum</span>
             </div>
             <h1 className="font-display font-bold text-5xl lg:text-6xl text-white mb-4">
-              7 Inteligencias.<br />
+              Sancto Sanctorum.<br />
               <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #C9A84C, #E8D080)' }}>
                 Una Pregunta.
               </span>
@@ -129,7 +129,7 @@ export default function HeptagonPage() {
               <textarea
                 value={question}
                 onChange={e => setQuestion(e.target.value)}
-                placeholder="¿Cuál es tu pregunta para el Heptágono?"
+                placeholder="¿Cuál es tu pregunta para el Sancto Sanctorum??"
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-base placeholder-white/20 outline-none focus:border-gold/30 transition-colors font-mono resize-none"
                 rows={3}
               />
@@ -144,12 +144,12 @@ export default function HeptagonPage() {
                 {loading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-obsidian-deep/30 border-t-obsidian-deep rounded-full animate-spin" />
-                    Consultando 7 nodos...
+                    Invocando los 7 nodos...
                   </>
                 ) : (
                   <>
                     <Send size={18} />
-                    Preguntar al Heptágono
+                    Consultar el Sancto Sanctorum
                   </>
                 )}
               </button>
@@ -170,7 +170,7 @@ export default function HeptagonPage() {
           {responses.length > 0 && (
             <div className="space-y-4">
               <p className="text-xs font-mono text-white/30 uppercase tracking-widest text-center mb-6">
-                Convergencia del Heptágono
+                Convergencia del Sancto Sanctorum
               </p>
               {responses.map((r) => (
                 <div key={r.node_id} className="p-6 rounded-2xl border bg-white/3 hover:border-white/10 transition-colors"

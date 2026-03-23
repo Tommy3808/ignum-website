@@ -54,7 +54,7 @@ export default function Home() {
               <a href="#infrastructure" className="nav-link">Infrastructure</a>
               <Link to="/investors" className="nav-link">Investors</Link>
               <Link to="/tommyai" className="nav-link">Tommy-AI</Link>
-              <Link to="/field" className="btn-outline text-xs py-2 px-4">Enter the Field</Link>
+              <Link to="/field" className="btn-outline text-xs py-2 px-4">Sancto Sanctorum</Link>
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Home() {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link to="/field" className="btn-outline">
-                Enter the Field
+                Sancto Sanctorum
               </Link>
             </div>
 
