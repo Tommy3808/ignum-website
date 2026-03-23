@@ -225,7 +225,7 @@ export default function Investors() {
                 <div className="flex items-center gap-3 mb-6">
                   <Cpu size={20} className="text-gold" />
                   <h3 className="font-display font-semibold text-xl text-white">On-Site Hardware</h3>
-                  <div className="px-2 py-1 bg-gold/20 rounded text-gold text-xs font-mono">LIVE</div>
+                  <div className="px-2 py-1 bg-white/10 rounded text-white/50 text-xs font-mono">DEPLOYING</div>
                 </div>
                 
                 <div className="space-y-3">
