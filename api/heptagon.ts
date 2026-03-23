@@ -186,11 +186,11 @@ async function callGroq(question: string): Promise<string> {
 }
 
 async function callOpenAI(question: string): Promise<string> {
-  const r = await fetch('https://api.openai.com/v1/chat/completions', {
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` },
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'gpt-4o',
+      model: 'openai/gpt-oss-120b',
       messages: [{ role: 'system', content: PROMPTS.metal }, { role: 'user', content: question }],
       max_tokens: 400, temperature: 0.8,
     }),
