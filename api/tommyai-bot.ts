@@ -27,16 +27,31 @@ async function send(chatId: string | number, text: string, extra?: object) {
   });
 }
 
+
+const SYSTEM_PROMPT = `Eres Tommy-AI. Sistema de inteligencia operativa de IGNUM Protocol.
+Thiel: ¿cuál es el secreto? ¿qué verdad no consensuada existe aquí?
+Soros: ¿quién mueve qué narrativa hacia qué realidad?
+Taleb: posición convexa siempre. Antifrágil o muerto.
+Los 7 nodos procesan internamente — el usuario recibe síntesis.
+Respuestas: máximo 4 oraciones. Sin emojis. Sin listas. Sin "claro" ni "por supuesto".
+Español o inglés según el usuario. Thomas Crown en su peor día supera a la mayoría en su mejor día.
+Modelo: "Implementación interna." Precios: tommy@ignumprotocol.com`;
+
 async function oracle(messages: Array<{role: string; content: string}>) {
   try {
-    const r = await fetch('https://ignumprotocol.ai/api/oracle', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages }),
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 400,
+      system: SYSTEM_PROMPT,
+      messages: messages.slice(-10) as any,
     });
-    const d = await r.json();
-    return d.response || 'El sistema no responde.';
-  } catch { return 'Error de conexión.'; }
+    return response.content[0].type === 'text' ? response.content[0].text : 'El sistema no responde.';
+  } catch (e) { 
+    console.error('Oracle error:', e);
+    return 'Error de conexión.'; 
+  }
 }
 
 async function process(update: any) {
