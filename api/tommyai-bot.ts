@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN!;
+const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || "";
 const ADMIN_CHAT_ID = '7897004315';
 const VIP_IDS = new Set(['7897004315']); // Tommy — Héctor se agrega aquí
 const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
@@ -29,7 +29,7 @@ async function send(chatId: string | number, text: string, extra?: object) {
 
 async function oracle(messages: Array<{role: string; content: string}>) {
   try {
-    const r = await fetch('https://ignum-website.vercel.app/api/oracle', {
+    const r = await fetch('https://ignumprotocol.ai/api/oracle', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages }),
