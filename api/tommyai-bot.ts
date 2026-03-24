@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN!;
 const ADMIN_CHAT_ID = '7897004315';
+const VIP_IDS = new Set(['7897004315']); // Tommy — agregar Héctor cuando llegue
 const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 // Simple KV usando Vercel Blob-like via env (MVP: usamos un archivo temporal en /tmp)
@@ -150,6 +151,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await sendMessage(userId, `✦ <b>Acceso concedido.</b>\n\nTienes ${FREE_LIMIT} consultas de prueba. Pregunta lo que necesitas.`);
     await sendMessage(ADMIN_CHAT_ID, `✓ ${userId} aprobado.`);
     return;
+  }
+
+  // VIP bypass — Tommy y Héctor entran directo
+  if (VIP_IDS.has(chatId) && text !== '/vip') {
+    const s2 = getState(chatId);
+    if (s2.step !== 'approved') {
+      s2.step = 'approved';
+      s2.uses = 0;
+      s2.history = [];
+      await sendMessage(chatId, `✦ <b>Tommy-AI</b>\n\nAcceso soberano. Sin límites.\n\nPregunta.`);
+      return;
+    }
+    // Ya approved — flujo normal de chat abajo
   }
 
   // /start
