@@ -16,16 +16,16 @@ async function tg(method: string, body: object) {
 }
 
 async function askAI(messages: Array<{role: string; content: string}>) {
-  const grokMessages = [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)];
-  const r = await fetch('https://api.x.ai/v1/chat/completions', {
+  const msgs = [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)];
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
+      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'grok-3',
-      messages: grokMessages,
+      model: 'moonshotai/kimi-k2-instruct',
+      messages: msgs,
       max_tokens: 400,
       temperature: 0.7,
     }),
