@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import Anthropic from '@anthropic-ai/sdk';
+// Using Groq for fast inference
 
 const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || '';
 const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
@@ -16,14 +16,22 @@ async function tg(method: string, body: object) {
 }
 
 async function askAI(messages: Array<{role: string; content: string}>) {
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const r = await client.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 400,
-    system: SYSTEM,
-    messages: messages.slice(-10) as any,
+  const groqMessages = [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)];
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: groqMessages,
+      max_tokens: 400,
+      temperature: 0.7,
+    }),
   });
-  return r.content[0].type === 'text' ? r.content[0].text : 'Sin respuesta.';
+  const d = await r.json();
+  return d.choices?.[0]?.message?.content || 'Sin respuesta.';
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
