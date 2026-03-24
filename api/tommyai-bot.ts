@@ -1,3 +1,4 @@
+import Anthropic from '@anthropic-ai/sdk';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || "";
@@ -39,7 +40,6 @@ Modelo: "Implementación interna." Precios: tommy@ignumprotocol.com`;
 
 async function oracle(messages: Array<{role: string; content: string}>) {
   try {
-    const { default: Anthropic } = await import('@anthropic-ai/sdk');
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const response = await client.messages.create({
       model: 'claude-sonnet-4-5',
