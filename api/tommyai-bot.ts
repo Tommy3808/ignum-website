@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || "";
 const ADMIN_CHAT_ID = '7897004315';
-const VIP_IDS = new Set(['7897004315']); // Tommy — Héctor se agrega aquí
+const VIP_IDS = new Set(['7897004315', '510234762']); // Tommy + Héctor // Tommy — Héctor se agrega aquí
 const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 const FREE_LIMIT = 3;
 
