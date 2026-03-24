@@ -119,6 +119,13 @@ async function process(update: any) {
   const text = (msg.text || '').trim();
   const s = getState(chatId);
 
+  // /reset — limpia estado (para VIPs)
+  if (text === '/reset' && VIP_IDS.has(chatId)) {
+    STATE[chatId] = { step: 'vip', uses: 0, history: [] };
+    await send(chatId, `✦ Estado limpiado. Sistema listo.\n\nPregunta.`);
+    return;
+  }
+
   // VIP — acceso directo sin límite
   if (VIP_IDS.has(chatId)) {
     if (s.step !== 'vip') {
