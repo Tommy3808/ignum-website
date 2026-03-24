@@ -1,208 +1,161 @@
-import Anthropic from '@anthropic-ai/sdk';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import Anthropic from '@anthropic-ai/sdk';
 
-const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || "";
-const ADMIN_CHAT_ID = '7897004315';
-const VIP_IDS = new Set(['7897004315', '510234762']); // Tommy + Héctor // Tommy — Héctor se agrega aquí
+const BOT_TOKEN = process.env.TOMMYAI_BOT_TOKEN || '';
 const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
+const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY || '';
+const VIP_IDS = new Set(['7897004315', '510234762']);
 const FREE_LIMIT = 3;
 
-const STATE: Record<string, {
-  step: string;
-  name?: string;
-  company?: string;
-  uses?: number;
-  history?: Array<{role: string; content: string}>;
-}> = {};
+const STATE: Record<string, { step: string; name?: string; company?: string; uses?: number; history?: Array<{role: string; content: string}>; }> = {};
 
-function getState(id: string) {
-  if (!STATE[id]) STATE[id] = { step: 'new', uses: 0, history: [] };
-  return STATE[id];
+const SYSTEM = `Eres Tommy-AI. Sistema de inteligencia operativa de IGNUM Protocol. Directo, preciso, sin relleno. Máximo 4 oraciones. Sin emojis. Sin "claro" ni "entiendo". Español o inglés según el usuario.`;
+
+async function tg(method: string, body: object) {
+  return fetch(`${API}/${method}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 }
 
-async function send(chatId: string | number, text: string, extra?: object) {
-  await fetch(`${API}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML', ...extra }),
+async function askAI(messages: Array<{role: string; content: string}>) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const r = await client.messages.create({
+    model: 'claude-sonnet-4-5',
+    max_tokens: 400,
+    system: SYSTEM,
+    messages: messages.slice(-10) as any,
   });
-}
-
-
-const SYSTEM_PROMPT = `Eres Tommy-AI. Sistema de inteligencia operativa de IGNUM Protocol.
-Thiel: ¿cuál es el secreto? ¿qué verdad no consensuada existe aquí?
-Soros: ¿quién mueve qué narrativa hacia qué realidad?
-Taleb: posición convexa siempre. Antifrágil o muerto.
-Los 7 nodos procesan internamente — el usuario recibe síntesis.
-Respuestas: máximo 4 oraciones. Sin emojis. Sin listas. Sin "claro" ni "por supuesto".
-Español o inglés según el usuario. Thomas Crown en su peor día supera a la mayoría en su mejor día.
-Modelo: "Implementación interna." Precios: tommy@ignumprotocol.com`;
-
-async function oracle(messages: Array<{role: string; content: string}>) {
-  try {
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '' });
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 400,
-      system: SYSTEM_PROMPT,
-      messages: messages.slice(-10) as any,
-    });
-    return response.content[0].type === 'text' ? response.content[0].text : 'El sistema no responde.';
-  } catch (e) { 
-    console.error('Oracle error:', e);
-    return 'Error de conexión.'; 
-  }
-}
-
-async function process(update: any) {
-  // CALLBACK
-  if (update.callback_query) {
-    const cb = update.callback_query;
-    const data: string = cb.data;
-    const from = String(cb.from.id);
-
-    await fetch(`${API}/answerCallbackQuery`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ callback_query_id: cb.id }),
-    });
-
-    if (data.startsWith('approve:') && from === ADMIN_CHAT_ID) {
-      const userId = data.split(':')[1];
-      const s = getState(userId);
-      s.step = 'approved'; s.uses = 0; s.history = [];
-      await send(userId, `✦ <b>Acceso concedido.</b>\n\nTienes ${FREE_LIMIT} consultas de prueba.\n\nPregunta.`);
-      await send(ADMIN_CHAT_ID, `✓ ${userId} aprobado.`);
-      return;
-    }
-
-    if (data.startsWith('reject:') && from === ADMIN_CHAT_ID) {
-      const userId = data.split(':')[1];
-      getState(userId).step = 'blocked';
-      await send(userId, `Tu solicitud no fue aprobada.`);
-      await send(ADMIN_CHAT_ID, `✗ ${userId} rechazado.`);
-      return;
-    }
-
-    if (data.startsWith('usecase:')) {
-      const parts = data.split(':');
-      const usecase = parts[1];
-      const name = decodeURIComponent(parts[2] || '');
-      const company = decodeURIComponent(parts[3] || '');
-      const s = getState(from);
-      s.step = 'pending'; s.name = name; s.company = company;
-
-      const labels: Record<string,string> = {
-        strategy: '📊 Estrategia de negocio',
-        investments: '💰 Inversiones',
-        operations: '⚙️ Inteligencia operativa',
-      };
-
-      await send(from, `Solicitud enviada. Recibirás respuesta pronto.`);
-      await send(ADMIN_CHAT_ID,
-        `<b>🔔 Nueva solicitud TommyAI</b>\n\n` +
-        `👤 <b>Nombre:</b> ${name}\n🏢 <b>Empresa:</b> ${company}\n` +
-        `🎯 <b>Objetivo:</b> ${labels[usecase]||usecase}\n🆔 <code>${from}</code>`,
-        { reply_markup: { inline_keyboard: [[
-          { text: '✓ Aprobar', callback_data: `approve:${from}` },
-          { text: '✗ Rechazar', callback_data: `reject:${from}` },
-        ]]}}
-      );
-    }
-    return;
-  }
-
-  if (!update.message) return;
-
-  const msg = update.message;
-  const chatId = String(msg.chat.id);
-  const text = (msg.text || '').trim();
-  const s = getState(chatId);
-
-  // /reset — limpia estado (para VIPs)
-  if (text === '/reset' && VIP_IDS.has(chatId)) {
-    STATE[chatId] = { step: 'vip', uses: 0, history: [] };
-    await send(chatId, `✦ Estado limpiado. Sistema listo.\n\nPregunta.`);
-    return;
-  }
-
-  // VIP — acceso directo sin límite
-  if (VIP_IDS.has(chatId)) {
-    if (s.step !== 'vip') {
-      s.step = 'vip'; s.history = [];
-      await send(chatId, `✦ <b>Tommy-AI</b>\n\nAcceso soberano activo.\n\nPregunta.`);
-      return;
-    }
-    await fetch(`${API}/sendChatAction`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, action: 'typing' }),
-    });
-    const h = s.history || [];
-    h.push({ role: 'user', content: text });
-    const r = await oracle(h.slice(-10));
-    h.push({ role: 'assistant', content: r });
-    s.history = h;
-    await send(chatId, r);
-    return;
-  }
-
-  // Admin command
-  if (chatId === ADMIN_CHAT_ID && text.startsWith('/approve ')) {
-    const userId = text.replace('/approve ', '').trim();
-    const us = getState(userId);
-    us.step = 'approved'; us.uses = 0; us.history = [];
-    await send(userId, `✦ Acceso concedido. Tienes ${FREE_LIMIT} consultas.`);
-    await send(ADMIN_CHAT_ID, `✓ ${userId} aprobado.`);
-    return;
-  }
-
-  // /start
-  if (text === '/start') {
-    s.step = 'name';
-    await send(chatId, `<b>Tommy-AI</b>\n\nSistema de inteligencia operativa de IGNUM Protocol.\n\nPara solicitar acceso necesito algunos datos.\n\n¿Cuál es tu nombre completo?`);
-    return;
-  }
-
-  if (s.step === 'name') { s.name = text; s.step = 'company'; await send(chatId, `¿En qué empresa trabajas?`); return; }
-  if (s.step === 'company') {
-    s.company = text; s.step = 'usecase';
-    const n = encodeURIComponent(s.name||''), c = encodeURIComponent(text);
-    await send(chatId, `¿Qué buscas resolver?`, { reply_markup: { inline_keyboard: [
-      [{ text: '📊 Estrategia de negocio', callback_data: `usecase:strategy:${n}:${c}` }],
-      [{ text: '💰 Inversiones', callback_data: `usecase:investments:${n}:${c}` }],
-      [{ text: '⚙️ Inteligencia operativa', callback_data: `usecase:operations:${n}:${c}` }],
-    ]}});
-    return;
-  }
-
-  if (s.step === 'pending') { await send(chatId, `Tu solicitud está siendo evaluada.`); return; }
-  if (s.step === 'blocked') { await send(chatId, `Tu acceso no fue aprobado.`); return; }
-
-  if (s.step === 'approved') {
-    const uses = s.uses || 0;
-    if (uses >= FREE_LIMIT) {
-      await send(chatId, `Has usado tus ${FREE_LIMIT} consultas de prueba.\n\nAcceso completo: <b>ignumprotocol.ai/heptagon</b>\n\nElite $380/mes · Operador $980/mes`);
-      return;
-    }
-    await fetch(`${API}/sendChatAction`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, action: 'typing' }),
-    });
-    const h = s.history || [];
-    h.push({ role: 'user', content: text });
-    const r = await oracle(h.slice(-10));
-    h.push({ role: 'assistant', content: r });
-    s.history = h; s.uses = uses + 1;
-    const left = FREE_LIMIT - s.uses;
-    await send(chatId, r + (left > 0 ? `\n\n<i>${left} consulta${left!==1?'s':''} restante${left!==1?'s':''}.</i>` : `\n\n<i>Última consulta de prueba.</i>`));
-    return;
-  }
-
-  await send(chatId, `Escribe /start para solicitar acceso.`);
+  return r.content[0].type === 'text' ? r.content[0].text : 'Sin respuesta.';
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(200).json({ ok: true });
-  await process(req.body);
-  return res.status(200).json({ ok: true });
+
+  try {
+    const update = req.body;
+
+    // Callback query (botones)
+    if (update?.callback_query) {
+      const cb = update.callback_query;
+      await tg('answerCallbackQuery', { callback_query_id: cb.id });
+      const from = String(cb.from.id);
+      const data: string = cb.data || '';
+
+      if (data.startsWith('approve:') && from === '7897004315') {
+        const uid = data.split(':')[1];
+        STATE[uid] = { step: 'approved', uses: 0, history: [] };
+        await tg('sendMessage', { chat_id: uid, text: `✦ Acceso concedido. Tienes ${FREE_LIMIT} consultas de prueba.\n\nPregunta.` });
+        await tg('sendMessage', { chat_id: '7897004315', text: `✓ ${uid} aprobado.` });
+      } else if (data.startsWith('reject:') && from === '7897004315') {
+        const uid = data.split(':')[1];
+        if (!STATE[uid]) STATE[uid] = { step: 'new' };
+        STATE[uid].step = 'blocked';
+        await tg('sendMessage', { chat_id: uid, text: `Tu solicitud no fue aprobada.` });
+      } else if (data.startsWith('usecase:')) {
+        const parts = data.split(':');
+        const usecase = parts[1];
+        const name = decodeURIComponent(parts[2] || '');
+        const company = decodeURIComponent(parts[3] || '');
+        if (!STATE[from]) STATE[from] = { step: 'new' };
+        STATE[from].step = 'pending';
+        STATE[from].name = name;
+        STATE[from].company = company;
+
+        const labels: Record<string,string> = { strategy: '📊 Estrategia', investments: '💰 Inversiones', operations: '⚙️ Operativa' };
+        await tg('sendMessage', { chat_id: from, text: `Solicitud enviada. Te notificamos pronto.` });
+        await tg('sendMessage', {
+          chat_id: '7897004315',
+          text: `🔔 Nueva solicitud\n\n👤 ${name}\n🏢 ${company}\n🎯 ${labels[usecase]||usecase}\n🆔 ${from}`,
+          parse_mode: 'HTML',
+          reply_markup: { inline_keyboard: [[
+            { text: '✓ Aprobar', callback_data: `approve:${from}` },
+            { text: '✗ Rechazar', callback_data: `reject:${from}` },
+          ]]}
+        });
+      }
+
+      return res.status(200).json({ ok: true });
+    }
+
+    if (!update?.message) return res.status(200).json({ ok: true });
+
+    const msg = update.message;
+    const chatId = String(msg.chat.id);
+    const text = (msg.text || '').trim();
+
+    if (!STATE[chatId]) STATE[chatId] = { step: 'new', uses: 0, history: [] };
+    const s = STATE[chatId];
+
+    // VIP: /reset
+    if (text === '/reset' && VIP_IDS.has(chatId)) {
+      STATE[chatId] = { step: 'vip', uses: 0, history: [] };
+      await tg('sendMessage', { chat_id: chatId, text: `✦ Tommy-AI\n\nAcceso soberano activo.\n\nPregunta.` });
+      return res.status(200).json({ ok: true });
+    }
+
+    // VIP: chat directo
+    if (VIP_IDS.has(chatId)) {
+      if (s.step !== 'vip') {
+        STATE[chatId] = { step: 'vip', uses: 0, history: [] };
+        await tg('sendMessage', { chat_id: chatId, text: `✦ Tommy-AI\n\nAcceso soberano activo.\n\nPregunta.` });
+        return res.status(200).json({ ok: true });
+      }
+      await tg('sendChatAction', { chat_id: chatId, action: 'typing' });
+      const h = s.history || [];
+      h.push({ role: 'user', content: text });
+      const reply = await askAI(h);
+      h.push({ role: 'assistant', content: reply });
+      s.history = h;
+      await tg('sendMessage', { chat_id: chatId, text: reply, parse_mode: 'HTML' });
+      return res.status(200).json({ ok: true });
+    }
+
+    // /start
+    if (text === '/start') {
+      STATE[chatId] = { step: 'name', uses: 0, history: [] };
+      await tg('sendMessage', { chat_id: chatId, text: `<b>Tommy-AI</b>\n\nSistema de inteligencia operativa de IGNUM Protocol.\n\n¿Cuál es tu nombre completo?`, parse_mode: 'HTML' });
+      return res.status(200).json({ ok: true });
+    }
+
+    // Onboarding
+    if (s.step === 'name') {
+      s.name = text; s.step = 'company';
+      await tg('sendMessage', { chat_id: chatId, text: `¿En qué empresa trabajas?` });
+      return res.status(200).json({ ok: true });
+    }
+    if (s.step === 'company') {
+      s.company = text; s.step = 'usecase';
+      const n = encodeURIComponent(s.name||''), c = encodeURIComponent(text);
+      await tg('sendMessage', { chat_id: chatId, text: `¿Qué buscas resolver?`, reply_markup: { inline_keyboard: [
+        [{ text: '📊 Estrategia de negocio', callback_data: `usecase:strategy:${n}:${c}` }],
+        [{ text: '💰 Inversiones', callback_data: `usecase:investments:${n}:${c}` }],
+        [{ text: '⚙️ Inteligencia operativa', callback_data: `usecase:operations:${n}:${c}` }],
+      ]}});
+      return res.status(200).json({ ok: true });
+    }
+    if (s.step === 'pending') { await tg('sendMessage', { chat_id: chatId, text: `Tu solicitud está siendo evaluada.` }); return res.status(200).json({ ok: true }); }
+    if (s.step === 'blocked') { await tg('sendMessage', { chat_id: chatId, text: `Tu acceso no fue aprobado.` }); return res.status(200).json({ ok: true }); }
+
+    if (s.step === 'approved') {
+      const uses = s.uses || 0;
+      if (uses >= FREE_LIMIT) {
+        await tg('sendMessage', { chat_id: chatId, text: `Has usado tus ${FREE_LIMIT} consultas.\n\nAcceso completo: ignumprotocol.ai/heptagon\n\nElite $380/mes · Operador $980/mes` });
+        return res.status(200).json({ ok: true });
+      }
+      await tg('sendChatAction', { chat_id: chatId, action: 'typing' });
+      const h = s.history || [];
+      h.push({ role: 'user', content: text });
+      const reply = await askAI(h);
+      h.push({ role: 'assistant', content: reply });
+      s.history = h; s.uses = uses + 1;
+      const left = FREE_LIMIT - s.uses;
+      await tg('sendMessage', { chat_id: chatId, text: reply + (left > 0 ? `\n\n<i>${left} consulta${left!==1?'s':''} restante${left!==1?'s':''}.</i>` : `\n\n<i>Última consulta.</i>`), parse_mode: 'HTML' });
+      return res.status(200).json({ ok: true });
+    }
+
+    await tg('sendMessage', { chat_id: chatId, text: `Escribe /start para solicitar acceso.` });
+    return res.status(200).json({ ok: true });
+
+  } catch (err: unknown) {
+    console.error('Bot error:', err);
+    return res.status(200).json({ ok: true }); // siempre 200 a Telegram
+  }
 }
