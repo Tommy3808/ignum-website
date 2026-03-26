@@ -1,41 +1,51 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, CheckCircle, Zap, Cpu, Server, Activity } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Zap, Server, FileText, Users, Building2, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Investors() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const infrastructureFacts = [
-    { label: 'Location', value: 'Km 9 Carr. Celaya–San Miguel de Allende' },
-    { label: 'Total Area', value: '45 hectares (29.5 ha available)' },
-    { label: 'IGNUM Compute Area', value: '15,000 m²' },
-    { label: 'Classification', value: 'Parque Ecológico Industrial' },
-    { label: 'Operating Since', value: '2016' },
-    { label: 'Initial Investment', value: '$250M MXN' },
-    { label: 'Industrial Neighbors', value: 'Mazda · Toyota · Honda · Pirelli' },
+  const vehicleStructure = [
+    { entity: 'TPWR Holdings', role: 'Strategic Holding · Founder-owned', jurisdiction: 'Mexico', status: 'Operating' },
+    { entity: 'IGNUM Bajío Energy SAPI', role: 'EnergyCo · Cogeneration + Campus', jurisdiction: 'Mexico', status: 'Operating' },
+    { entity: 'IGNUM Protocol SAPI', role: 'OpCo · Compute + AI Platform', jurisdiction: 'Mexico', status: 'Incorporating' },
+    { entity: 'IGNUM Infra AssetCo', role: 'AssetCo · GPU + DC Infrastructure', jurisdiction: 'Delaware / Mexico', status: 'Structuring' },
   ];
 
-  const energyFacts = [
-    { label: 'Engine Model', value: 'Jenbacher J620 — V20, 1,500 rpm' },
-    { label: 'Output per Unit', value: '3,041–3,360 kW (up to 45.9% elec. eff.)' },
-    { label: 'IGNUM Phase 1', value: '~2 MW allocated' },
-    { label: 'Campus Installed', value: '7.3 MW trigeneration' },
-    { label: 'Expansion Authorized', value: 'Up to 100 MW' },
-    { label: 'Type', value: 'Trigeneration: elec + heat + chilled water' },
-    { label: 'CHP Efficiency', value: '90–92% total · PUE 1.15–1.22' },
-    { label: 'Substation', value: '20 MVA (own)' },
-    { label: 'Gas Pipeline', value: '25 km private (group-owned)' },
-    { label: 'Energy Cost (PPA)', value: '$0.038–0.045 USD/kWh' },
-    { label: 'Island Mode', value: 'Off-grid capable · <2 min startup' },
-    { label: 'Future-Ready', value: 'H₂-blend compatible' },
+  const useOfFunds = [
+    { category: 'GPU Hardware', allocation: '45%', detail: 'H200, Blackwell, networking, storage' },
+    { category: 'Datacenter Buildout', allocation: '25%', detail: 'Halls, cooling, power distribution' },
+    { category: 'Software Platform', allocation: '15%', detail: 'Kubernetes, orchestration, security' },
+    { category: 'Operations', allocation: '10%', detail: 'Team, NOC, compliance' },
+    { category: 'Reserve', allocation: '5%', detail: 'Working capital, contingencies' },
+  ];
+
+  const milestones = [
+    { quarter: 'Q2 2025', milestone: '4× H200 deployed · Kubernetes live', status: 'In Progress' },
+    { quarter: 'Q3 2025', milestone: 'First enterprise contracts signed', status: 'Planned' },
+    { quarter: 'Q4 2025', milestone: '20 GPU cluster operational', status: 'Planned' },
+    { quarter: 'Q2 2026', milestone: '100 GPU · Multi-tenant platform', status: 'Planned' },
+    { quarter: '2027', milestone: '500 GPU · Regional leader', status: 'Target' },
+  ];
+
+  const diligenceDocs = [
+    { name: 'Technical Architecture Brief', type: 'PDF', size: '2.4 MB', status: 'Available' },
+    { name: 'Financial Model (Phase 1-4)', type: 'XLSX', size: '1.8 MB', status: 'NDA Required' },
+    { name: 'Energy PPA & Permits', type: 'PDF', size: '4.1 MB', status: 'NDA Required' },
+    { name: 'Corporate Structure Chart', type: 'PDF', size: '0.8 MB', status: 'Available' },
+    { name: 'Site Visit Protocol', type: 'PDF', size: '0.5 MB', status: 'Available' },
+  ];
+
+  const team = [
+    { name: 'Tomás Macías', role: 'CEO · Founder', bio: 'AI infrastructure architecture, capital strategy, enterprise systems. Built IGNUM from concept to GPU acquisition.', contact: 'tommy@ignumprotocol.ai' },
+    { name: 'Héctor González', role: 'CEO · Co-Founder', bio: 'Owner, Cuadritos Biotek. Built 45-hectare industrial park with 7.3 MW trigeneration. $250M MXN invested.', contact: 'hgonzalez@ignumprotocol.ai' },
   ];
 
   return (
@@ -55,10 +65,11 @@ export default function Investors() {
             </Link>
             
             <div className="hidden lg:flex items-center gap-10">
-              <a href="#thesis" className="nav-link">Thesis</a>
-              <a href="#infrastructure" className="nav-link">Infrastructure</a>
+              <a href="#overview" className="nav-link">Overview</a>
+              <a href="#structure" className="nav-link">Structure</a>
               <a href="#economics" className="nav-link">Economics</a>
-              <a href="#trajectory" className="nav-link">Trajectory</a>
+              <a href="#milestones" className="nav-link">Milestones</a>
+              <a href="#diligence" className="nav-link">Diligence</a>
               <a href="#team" className="nav-link">Team</a>
             </div>
           </div>
@@ -66,525 +77,339 @@ export default function Investors() {
       </nav>
 
       {/* HERO */}
-      <section className="relative min-h-[60vh] flex flex-col justify-center pt-32 pb-20">
+      <section className="relative min-h-[70vh] flex flex-col justify-center pt-32 pb-20">
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian-deep to-obsidian-light" />
         
         <div className="relative z-10 w-full px-6 lg:px-12">
           <div className="max-w-5xl mx-auto">
-            <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Investment Opportunity</p>
+            <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Private Investment Opportunity</p>
             <h1 className="font-display font-bold text-4xl lg:text-6xl text-white mb-6">
-              Investment <span className="text-gradient-gold">Thesis</span>
+              Sovereign AI Infrastructure<br />
+              <span className="text-gradient-gold">Investment Vehicle</span>
             </h1>
-            <p className="text-xl text-white/60 max-w-3xl leading-relaxed">
-              Latin America's AI compute demand is accelerating. Supply doesn't exist at sovereign grade. 
-              IGNUM is building it. This is not a pitch deck — it is a real platform with physical assets 
-              seeking growth capital.
+            <p className="text-xl text-white/60 max-w-3xl leading-relaxed mb-8">
+              IGNUM is raising growth capital to deploy sovereign GPU compute infrastructure 
+              in Mexico. Real assets. Real energy. Real jurisdiction. Structured for institutional capital.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* THESIS POINTS */}
-      <section id="thesis" className="relative py-24">
-        <div className="absolute inset-0 bg-obsidian-light" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              
-              {/* Left: Thesis Points */}
-              <div className="space-y-8">
-                {[
-                  { 
-                    num: '01', 
-                    title: 'Structural Advantage', 
-                    detail: 'Trigeneration at $0.038–0.045/kWh via internal PPA. 7.3 MW installed, authorized to scale to 100 MW. 25 km private gas pipeline. 20 MVA own substation. Island-mode capable. This isn\'t a contract — it\'s ownership-level access to controlled energy.' 
-                  },
-                  { 
-                    num: '02', 
-                    title: 'Market Timing', 
-                    detail: 'GPU demand in LATAM exceeds supply by orders of magnitude. Governments, banks, and enterprises are mandated to process data regionally. No sovereign-grade compute platform exists in the region today.' 
-                  },
-                  { 
-                    num: '03', 
-                    title: 'Jurisdictional Moat', 
-                    detail: 'Mexican industrial framework with regional data governance. SAPI de CV structure designed for institutional capital. Full industrial, CRE, SEMARNAT, water, and gas permits — a regulatory framework new entrants cannot replicate.' 
-                  },
-                  { 
-                    num: '04', 
-                    title: 'Proof, Not Promise', 
-                    detail: 'H200 141GB + Blackwell hardware acquired — installation underway. 45-hectare industrial campus since 2016 — neighbors include Mazda, Toyota, Honda, Pirelli. $250M MXN already invested in park infrastructure.' 
-                  },
-                ].map((point) => (
-                  <div key={point.num} className="border-b border-gold/10 pb-8">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="font-mono text-gold text-sm">{point.num}</span>
-                      <h3 className="font-display font-semibold text-xl text-white">{point.title}</h3>
-                    </div>
-                    <p className="text-white/60 leading-relaxed">{point.detail}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right: Summary Card */}
-              <div className="glass-card rounded-2xl p-8 border-gold/20 h-fit lg:sticky lg:top-32">
-                <p className="font-mono text-gold text-sm tracking-widest uppercase mb-6">At Full Scale</p>
-                
-                <div className="mb-8">
-                  <p className="font-display text-5xl text-gold font-bold">1,500</p>
-                  <p className="text-white/60">GPUs across dedicated compute halls</p>
+            
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: 'Power Installed', value: '7.3 MW' },
+                { label: 'Campus Size', value: '45 ha' },
+                { label: 'Phase 1 GPUs', value: '4× H200' },
+                { label: 'Target IRR', value: '35%+' },
+              ].map(m => (
+                <div key={m.label} className="p-4 rounded-xl border border-gold/20 bg-gold/5">
+                  <p className="font-display text-2xl text-gold">{m.value}</p>
+                  <p className="text-white/50 text-xs">{m.label}</p>
                 </div>
-
-                <div className="space-y-4">
-                  {[
-                    { label: 'Monthly Revenue (CaaS)', value: '$5.1M' },
-                    { label: 'Annual Revenue (CaaS)', value: '$61M+' },
-                    { label: 'EBITDA Target', value: '~65%' },
-                    { label: 'Energy Cost', value: '$0.04/GPU·h' },
-                    { label: 'Campus', value: '45 hectares' },
-                    { label: 'Power Ceiling', value: '100 MW authorized' },
-                    { label: 'Jurisdiction', value: 'MX Sovereign' },
-                  ].map((item) => (
-                    <div key={item.label} className="flex justify-between items-center py-2 border-b border-white/5">
-                      <span className="text-white/50 text-sm">{item.label}</span>
-                      <span className="text-gold font-mono">{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-gold/20">
-                  <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Additional Revenue</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/60 text-sm">Enterprise Intelligence</span>
-                    <span className="text-gold/70 text-sm">Additive</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-white/60 text-sm">Strategic Advisory</span>
-                    <span className="text-gold/70 text-sm">Additive</span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* INFRASTRUCTURE DETAIL */}
-      <section id="infrastructure" className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian-light to-obsidian-deep" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Infrastructure</p>
-              <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-4">
-                Built. Operational. <span className="text-gradient-gold">Expanding.</span>
-              </h2>
-            </div>
-
-            {/* Campus */}
-            <div className="glass-card rounded-2xl p-8 border-gold/20 mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="px-3 py-1 bg-teal/20 border border-teal/50 rounded-full flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-teal animate-pulse" />
-                  <span className="text-teal text-xs font-mono uppercase">Operational</span>
-                </div>
-                <h3 className="font-display font-semibold text-xl text-white">Parque Industrial Cuadritos</h3>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {infrastructureFacts.map((fact) => (
-                  <div key={fact.label} className="flex justify-between items-center py-3 border-b border-white/5">
-                    <span className="text-white/50 text-sm uppercase tracking-wider">{fact.label}</span>
-                    <span className="text-white font-mono text-sm text-right">{fact.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Energy */}
-            <div className="glass-card rounded-2xl p-8 border-gold/20 mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Zap size={20} className="text-gold" />
-                <h3 className="font-display font-semibold text-xl text-white">Energy Infrastructure</h3>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {energyFacts.map((fact) => (
-                  <div key={fact.label} className="flex justify-between items-center py-3 border-b border-white/5">
-                    <span className="text-white/50 text-sm uppercase tracking-wider">{fact.label}</span>
-                    <span className="text-white font-mono text-sm text-right">{fact.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Hardware */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <div className="flex items-center gap-3 mb-6">
-                  <Cpu size={20} className="text-gold" />
-                  <h3 className="font-display font-semibold text-xl text-white">On-Site Hardware</h3>
-                  <div className="px-2 py-1 bg-white/10 rounded text-white/50 text-xs font-mono">DEPLOYING</div>
-                </div>
-                
-                <div className="space-y-3">
-                  {[
-                    '4× NVIDIA H200 SXM5 141GB HBM3e — NVLink 900 GB/s',
-                    '2× NVIDIA RTX 6000 Pro Blackwell',
-                    '400 GbE + enterprise switching',
-                    'NVMe Enterprise — RAID Z3 (ZFS)',
-                    'Dual PSU — UPS backup',
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2">
-                      <CheckCircle size={16} className="text-gold/70" />
-                      <span className="text-white/70 text-sm font-mono">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <div className="flex items-center gap-3 mb-6">
-                  <Server size={20} className="text-blue-400" />
-                  <h3 className="font-display font-semibold text-xl text-white">Software Stack</h3>
-                  <div className="px-2 py-1 bg-blue-500/20 rounded text-blue-400 text-xs font-mono">PENDING</div>
-                </div>
-                
-                <div className="space-y-3">
-                  {[
-                    'Kubernetes — auto-scale, auto-heal',
-                    'Prometheus + Grafana — real-time monitoring',
-                    'ZeroTier VPN + pfSense firewall',
-                    'Multi-model serving — Ollama + FastAPI',
-                    'CCTV + biometric access control',
-                    '24/7 physical surveillance',
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                      <span className="text-white/70 text-sm font-mono">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+      {/* TAB NAVIGATION */}
+      <div className="sticky top-20 z-40 bg-obsidian-deep/95 backdrop-blur-xl border-b border-gold/10">
+        <div className="w-full px-6 lg:px-12">
+          <div className="flex gap-8 overflow-x-auto py-4">
+            {[
+              { id: 'overview', label: 'Overview' },
+              { id: 'structure', label: 'Vehicle Structure' },
+              { id: 'economics', label: 'Use of Funds' },
+              { id: 'milestones', label: 'Milestones' },
+              { id: 'diligence', label: 'Diligence' },
+              { id: 'team', label: 'Team & Governance' },
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => { setActiveTab(tab.id); document.getElementById(tab.id)?.scrollIntoView({ behavior: 'smooth' }); }}
+                className={`text-sm font-mono uppercase tracking-wider whitespace-nowrap transition-colors ${
+                  activeTab === tab.id ? 'text-gold' : 'text-white/40 hover:text-white'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ECONOMICS */}
-      <section id="economics" className="relative py-24">
-        <div className="absolute inset-0 bg-obsidian-light" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Unit Economics</p>
-              <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-4">
-                Economics at <span className="text-gradient-gold">Scale</span>
-              </h2>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8 border-gold/20 overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gold/20">
-                    <th className="text-left py-4 text-white/50 text-sm uppercase tracking-wider"></th>
-                    <th className="text-right py-4 text-gold text-sm uppercase tracking-wider">Phase 1 (4 GPUs)</th>
-                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 2 (20)</th>
-                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 3 (100)</th>
-                    <th className="text-right py-4 text-blue-400 text-sm uppercase tracking-wider">Phase 4 (500)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { label: 'Price / hr', values: ['$6.50', '$6.50', '$6.00', '$5.50'] },
-                    { label: 'Utilization', values: ['85%', '85%', '85%', '85%'] },
-                    { label: 'Monthly Revenue', values: ['$15.9K', '$79.4K', '$734K', '$5.1M'] },
-                    { label: 'Energy / GPU·h', values: ['~$0.04', '~$0.04', '~$0.04', '~$0.04'] },
-                    { label: 'EBITDA Target', values: ['~72%', '~70%', '~67%', '~65%'] },
-                  ].map((row) => (
-                    <tr key={row.label} className="border-b border-white/5">
-                      <td className="py-4 text-white font-medium">{row.label}</td>
-                      {row.values.map((val, i) => (
-                        <td key={i} className={`py-4 text-right font-mono ${i === 0 ? 'text-gold' : 'text-blue-400'}`}>
-                          {val}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <p className="text-white/40 text-sm mt-6 italic">
-              Compute-as-a-Service only. Enterprise Intelligence and Advisory revenue is additive. 
-              Projected figures are estimates based on current unit economics.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* TRAJECTORY */}
-      <section id="trajectory" className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian-light to-obsidian-deep" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Scaling Trajectory</p>
-              <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-4">
-                From Proof to <span className="text-gradient-gold">Platform</span>
-              </h2>
-              <p className="text-white/50 max-w-2xl mx-auto">
-                Each phase is capital-efficient and tied to contracted demand.
+      {/* OVERVIEW */}
+      <section id="overview" className="py-24 px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="font-display font-bold text-3xl text-white mb-6">What We Are Building</h2>
+              <p className="text-white/60 leading-relaxed mb-6">
+                IGNUM is constructing Latin America's first sovereign-grade AI compute platform. 
+                Not a cloud reseller. Not a hosting provider. A vertically integrated infrastructure 
+                company that owns energy, campus, and compute.
               </p>
-            </div>
-
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal via-gold to-blue-400" />
-
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pt-8">
+              <div className="space-y-4">
                 {[
-                  { 
-                    phase: 'Operational', 
-                    date: 'Now', 
-                    gpus: '4 GPUs', 
-                    detail: 'H200 141GB acquired — deploying to 45 ha campus. ~2 MW allocated.',
-                    status: 'active',
-                    milestones: ['IGNUM Bajío Energy SAPI', '~2 MW of 7.3 MW', 'Kubernetes live']
-                  },
-                  { 
-                    phase: 'Phase 2', 
-                    date: 'Q4 2026', 
-                    gpus: '20 GPUs', 
-                    detail: 'Cluster expansion. Enterprise platform launch. First anchor contracts.',
-                    status: 'funded',
-                    milestones: ['Enterprise Intelligence', 'Dark fiber RFP', 'Strategic capital']
-                  },
-                  { 
-                    phase: 'Phase 3', 
-                    date: '2027', 
-                    gpus: '100 GPUs', 
-                    detail: 'Dedicated datacenter halls. Multi-tenant platform.',
-                    status: 'planned',
-                    milestones: ['Dark fiber live', 'Multi-tenant orch.', 'Gov + banking']
-                  },
-                  { 
-                    phase: 'Phase 4', 
-                    date: '2028+', 
-                    gpus: '500 GPUs', 
-                    detail: 'Regional sovereign compute leader. Full campus utilization.',
-                    status: 'planned',
-                    milestones: ['100 MW scaling', 'Regional leader', '$61M+ revenue']
-                  },
-                ].map((node) => (
-                  <div key={node.phase} className="relative">
-                    <div className={`absolute -top-10 left-0 w-4 h-4 rounded-full border-2 ${
-                      node.status === 'active' ? 'bg-teal border-teal' : 
-                      node.status === 'funded' ? 'bg-gold border-gold' : 
-                      'bg-obsidian border-blue-400'
-                    }`} />
-                    
-                    <p className={`font-mono text-xs uppercase tracking-wider mb-2 ${
-                      node.status === 'active' ? 'text-teal' : 
-                      node.status === 'funded' ? 'text-gold' : 
-                      'text-blue-400'
-                    }`}>{node.phase}</p>
-                    <p className="font-display text-2xl text-white mb-2">{node.date}</p>
-                    <p className="font-mono text-3xl text-gold mb-4">{node.gpus}</p>
-                    <p className="text-white/60 text-sm mb-4">{node.detail}</p>
-                    
-                    <div className="space-y-2">
-                      {node.milestones.map((m, i) => (
-                        <div key={i} className="flex items-center gap-2 text-white/40 text-xs">
-                          <span className="text-gold">→</span>
-                          {m}
-                        </div>
-                      ))}
-                    </div>
+                  '7.3 MW trigeneration operational (expandable to 100 MW)',
+                  '4× NVIDIA H200 141GB deploying Q2 2025',
+                  '45-hectare industrial campus with full permits',
+                  'Mexican jurisdiction — no CLOUD Act exposure',
+                  '$0.04/kWh energy cost vs $0.12+ US cloud',
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle size={16} className="text-gold" />
+                    <span className="text-white/70 text-sm">{item}</span>
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="glass-card rounded-2xl p-8 border-gold/20">
+              <h3 className="font-display font-semibold text-xl text-white mb-6">Investment Highlights</h3>
+              <div className="space-y-4">
+                {[
+                  { label: 'Asset-Backed', value: 'Real infrastructure, not SaaS' },
+                  { label: 'Energy Moat', value: '60% cost advantage vs cloud' },
+                  { label: 'Jurisdiction', value: 'Sovereign by design' },
+                  { label: 'Market Timing', value: 'GPU shortage in LATAM' },
+                  { label: 'Team', value: 'Proven operators + industrial owner' },
+                ].map(h => (
+                  <div key={h.label} className="flex justify-between items-center py-2 border-b border-white/5">
+                    <span className="text-white/50 text-sm">{h.label}</span>
+                    <span className="text-gold text-sm font-medium">{h.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VEHICLE STRUCTURE */}
+      <section id="structure" className="py-24 px-6 lg:px-12 bg-obsidian-light">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display font-bold text-3xl text-white mb-2">Corporate Structure</h2>
+          <p className="text-white/50 mb-12">AssetCo / EnergyCo / OpCo / HoldCo — designed for institutional capital</p>
+          
+          <div className="glass-card rounded-2xl overflow-hidden border-gold/20">
+            <table className="w-full">
+              <thead className="bg-gold/10">
+                <tr>
+                  <th className="text-left py-4 px-6 text-gold text-xs font-mono uppercase">Entity</th>
+                  <th className="text-left py-4 px-6 text-gold text-xs font-mono uppercase">Role</th>
+                  <th className="text-left py-4 px-6 text-gold text-xs font-mono uppercase">Jurisdiction</th>
+                  <th className="text-left py-4 px-6 text-gold text-xs font-mono uppercase">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vehicleStructure.map((v, i) => (
+                  <tr key={i} className="border-b border-white/5">
+                    <td className="py-4 px-6 text-white font-medium">{v.entity}</td>
+                    <td className="py-4 px-6 text-white/60 text-sm">{v.role}</td>
+                    <td className="py-4 px-6 text-white/60 text-sm">{v.jurisdiction}</td>
+                    <td className="py-4 px-6">
+                      <span className={`text-xs font-mono px-2 py-1 rounded ${
+                        v.status === 'Operating' ? 'bg-teal/20 text-teal' :
+                        v.status === 'Incorporating' ? 'bg-gold/20 text-gold' :
+                        'bg-blue-500/20 text-blue-400'
+                      }`}>{v.status}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
+            {[
+              { icon: Building2, title: 'AssetCo', desc: 'Owns GPU, datacenter infrastructure, long-life assets' },
+              { icon: Zap, title: 'EnergyCo', desc: 'Owns 7.3 MW cogeneration, campus, energy contracts' },
+              { icon: Server, title: 'OpCo', desc: 'Operates compute platform, customer contracts, revenue' },
+            ].map(c => (
+              <div key={c.title} className="p-6 rounded-xl border border-white/10 bg-white/3">
+                <c.icon size={24} className="text-gold mb-4" />
+                <h4 className="font-display font-semibold text-white mb-2">{c.title}</h4>
+                <p className="text-white/50 text-sm">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* USE OF FUNDS */}
+      <section id="economics" className="py-24 px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display font-bold text-3xl text-white mb-2">Use of Funds</h2>
+          <p className="text-white/50 mb-12">Capital allocation for Phase 1-2 deployment</p>
+          
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="space-y-4">
+              {useOfFunds.map((f, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/3">
+                  <div className="w-16 text-right">
+                    <span className="font-display text-xl text-gold">{f.allocation}</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white font-medium">{f.category}</p>
+                    <p className="text-white/50 text-sm">{f.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="glass-card rounded-2xl p-8 border-gold/20">
+              <h3 className="font-display font-semibold text-xl text-white mb-6">Unit Economics at Scale</h3>
+              <div className="space-y-4">
+                {[
+                  { label: 'Revenue per GPU / month', value: '$15,900' },
+                  { label: 'Energy cost per GPU / month', value: '$2,880' },
+                  { label: 'Gross margin', value: '~82%' },
+                  { label: 'EBITDA margin at scale', value: '~65%' },
+                  { label: 'Payback period (GPU)', value: '18-24 months' },
+                ].map(e => (
+                  <div key={e.label} className="flex justify-between items-center py-2 border-b border-white/5">
+                    <span className="text-white/50 text-sm">{e.label}</span>
+                    <span className="text-gold font-mono">{e.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MILESTONES */}
+      <section id="milestones" className="py-24 px-6 lg:px-12 bg-obsidian-light">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display font-bold text-3xl text-white mb-12">Deployment Milestones</h2>
+          
+          <div className="relative">
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal via-gold to-blue-400" />
+            <div className="grid md:grid-cols-5 gap-4 pt-8">
+              {milestones.map((m, i) => (
+                <div key={i} className="relative">
+                  <div className={`absolute -top-10 left-0 w-4 h-4 rounded-full border-2 ${
+                    m.status === 'In Progress' ? 'bg-teal border-teal' :
+                    m.status === 'Planned' ? 'bg-gold border-gold' :
+                    'bg-obsidian border-blue-400'
+                  }`} />
+                  <p className={`text-xs font-mono uppercase mb-2 ${
+                    m.status === 'In Progress' ? 'text-teal' :
+                    m.status === 'Planned' ? 'text-gold' :
+                    'text-blue-400'
+                  }`}>{m.quarter}</p>
+                  <p className="text-white text-sm leading-relaxed">{m.milestone}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DILIGENCE */}
+      <section id="diligence" className="py-24 px-6 lg:px-12">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display font-bold text-3xl text-white mb-2">Due Diligence Materials</h2>
+          <p className="text-white/50 mb-12">Available upon request. NDA required for financials.</p>
+          
+          <div className="grid md:grid-cols-2 gap-4">
+            {diligenceDocs.map((doc, i) => (
+              <div key={i} className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/3 hover:border-gold/30 transition-colors">
+                <FileText size={24} className="text-gold" />
+                <div className="flex-1">
+                  <p className="text-white font-medium">{doc.name}</p>
+                  <p className="text-white/40 text-xs">{doc.type} · {doc.size}</p>
+                </div>
+                <span className={`text-xs font-mono px-2 py-1 rounded ${
+                  doc.status === 'Available' ? 'bg-teal/20 text-teal' : 'bg-gold/20 text-gold'
+                }`}>{doc.status}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 p-8 rounded-2xl border border-gold/20 bg-gold/5 text-center">
+            <h3 className="font-display font-semibold text-xl text-white mb-4">Request Data Room Access</h3>
+            <p className="text-white/60 mb-6">Full financial model, permits, and technical documentation available to qualified investors.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a href="mailto:ir@ignumprotocol.ai?subject=Data Room Access Request" className="btn-gold">
+                ir@ignumprotocol.ai
+              </a>
+              <a href="mailto:tommy@ignumprotocol.ai" className="btn-outline">
+                tommy@ignumprotocol.ai
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* TEAM */}
-      <section id="team" className="relative py-24">
-        <div className="absolute inset-0 bg-obsidian-light" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Leadership</p>
-              <h2 className="font-display font-bold text-4xl lg:text-5xl text-white">The Team</h2>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <h3 className="font-display font-semibold text-2xl text-white mb-2">Héctor González</h3>
-                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Co-Founder</p>
-                <p className="text-white/60 leading-relaxed">
-                  Owner, Cuadritos Biotek and Parque Industrial Cuadritos. Built a 45-hectare 
-                  industrial park ($250M MXN invested) with 7.3 MW trigeneration, 25 km private 
-                  gas pipeline, and authorization to scale to 100 MW.
-                </p>
-              </div>
-
-              <div className="glass-card rounded-2xl p-8 border-gold/20">
-                <h3 className="font-display font-semibold text-2xl text-white mb-2">Tomás Macías</h3>
-                <p className="font-mono text-gold text-sm uppercase tracking-wider mb-4">CEO & Founder</p>
-                <p className="text-white/60 leading-relaxed">
-                  Built IGNUM from concept to GPU acquisition and infrastructure deployment. 
-                  AI infrastructure architecture, enterprise systems, and strategic execution. 
-                  Leads technology vision, capital strategy, and client relationships.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 glass-card rounded-2xl p-8 border-gold/20 text-center">
-              <p className="font-display font-semibold text-white mb-2">Cuadritos Biotek / Parque Industrial Cuadritos</p>
-              <p className="text-white/50 text-sm">45 ha campus · 7.3 MW trigeneration (→100 MW) · 25 km gas pipeline · Industrial permits · Energy PPA</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* JURISDICTION */}
-      <section className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian-light to-obsidian-deep" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="font-mono text-gold text-sm tracking-widest uppercase mb-4">Legal Architecture</p>
-            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-12">
-              Sovereign by <span className="text-gradient-gold">Design</span>
-            </h2>
-
-            <div className="space-y-4 max-w-2xl mx-auto">
-              {[
-                'Mexican industrial and commercial operating framework',
-                'Regional data governance designed for institutional requirements',
-                'Cross-border requests handled under structured legal process',
-                'IGNUM Bajío Energy SAPI de CV — structured for institutional investment',
-                'Full permits: Industrial, CRE, SEMARNAT, water, gas',
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 py-3 border-b border-white/5">
-                  <div className="w-2 h-2 rounded-full bg-gold" />
-                  <span className="text-white/70 text-left">{item}</span>
+      <section id="team" className="py-24 px-6 lg:px-12 bg-obsidian-light">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display font-bold text-3xl text-white mb-12">Leadership & Governance</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {team.map((t, i) => (
+              <div key={i} className="glass-card rounded-2xl p-8 border-gold/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center">
+                    <Users size={24} className="text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-semibold text-xl text-white">{t.name}</h3>
+                    <p className="text-gold text-sm">{t.role}</p>
+                  </div>
                 </div>
-              ))}
-            </div>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">{t.bio}</p>
+                <a href={`mailto:${t.contact}`} className="text-gold text-sm font-mono hover:underline">
+                  {t.contact}
+                </a>
+              </div>
+            ))}
+          </div>
 
-            <p className="mt-12 font-display text-xl text-white/60 italic">
-              "Sovereignty is not a feature. It is the foundation."
+          <div className="mt-8 p-6 rounded-xl border border-white/10 bg-white/3">
+            <div className="flex items-center gap-3 mb-4">
+              <Shield size={20} className="text-gold" />
+              <h4 className="font-display font-semibold text-white">Governance & Advisors</h4>
+            </div>
+            <p className="text-white/50 text-sm">
+              Legal counsel: TBD · Auditor: TBD · Technical advisory: Heptágono AI Council · 
+              Board composition: 2 founders + 1 independent (post-Series A)
             </p>
           </div>
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section className="relative py-24">
-        <div className="absolute inset-0 bg-obsidian-deep" />
-        
-        <div className="relative z-10 w-full px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6">
-              Start the <span className="text-gradient-gold">Conversation</span>
-            </h2>
-            <p className="text-white/60 mb-8">
-              Enterprise clients. Investors. Sovereign partners. Site visits available.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="mailto:hgonzalez@ignumprotocol.com" className="btn-gold">
-                hgonzalez@ignumprotocol.com
-              </a>
-              <a href="mailto:tommy@ignumprotocol.com" className="btn-outline">
-                tommy@ignumprotocol.com
-              </a>
-            </div>
-
-            <p className="mt-8 text-white/40 text-sm">
-              On-site visit to Parque Industrial Cuadritos available upon request.
-            </p>
+      {/* CTA */}
+      <section className="py-24 px-6 lg:px-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="font-display font-bold text-4xl text-white mb-6">Start the Conversation</h2>
+          <p className="text-white/60 mb-8">
+            Qualified institutional investors, family offices, and infrastructure funds.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:ir@ignumprotocol.ai" className="btn-gold text-lg px-8 py-4">
+              ir@ignumprotocol.ai
+            </a>
+            <a href="mailto:tommy@ignumprotocol.ai" className="btn-outline text-lg px-8 py-4">
+              tommy@ignumprotocol.ai
+            </a>
           </div>
+          <p className="mt-8 text-white/30 text-sm">
+            Site visits to Parque Industrial Cuadritos available upon request.
+          </p>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="relative py-12 border-t border-white/5">
-        <div className="w-full px-6 lg:px-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <Link to="/" className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center">
-                  <span className="text-gold font-display font-bold">I</span>
-                </div>
-                <div>
-                  <span className="font-display font-semibold text-white tracking-wider">IGNUM</span>
-                  <span className="text-white/40 text-sm ml-2">Protocol</span>
-                </div>
-              </Link>
-
-              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-gold/5 border border-gold/20">
-                <Activity size={16} className="text-gold animate-pulse" />
-                <span className="text-gold text-xs font-mono uppercase tracking-wider">TommyAI Online</span>
-              </div>
-
-              <div className="text-white/40 text-sm">
-                © 2026 IGNUM Bajío Energy SAPI de CV
-              </div>
+      <footer className="py-12 px-6 lg:px-12 border-t border-white/5">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full border border-gold/50 flex items-center justify-center">
+              <span className="text-gold font-display font-bold text-sm">I</span>
             </div>
-
-            {/* Energy Tokenization */}
-            <div className="mt-12 p-8 rounded-2xl border border-gold/20 bg-gold/5">
-              <div className="flex items-start gap-6">
-                <div className="text-3xl">⚡</div>
-                <div>
-                  <p className="text-gold text-xs font-mono uppercase tracking-widest mb-2">Energy Asset Tokenization — In Development</p>
-                  <h3 className="font-display font-bold text-2xl text-white mb-3">
-                    $IGNUM — Tokenized Sovereign Energy
-                  </h3>
-                  <p className="text-white/60 leading-relaxed mb-4">
-                    IGNUM Bajío Energy SAPI is developing an on-chain instrument to tokenize 
-                    sovereign Mexican energy production. Built on Base L2. Each token represents 
-                    a claim on verified kWh generated at the Cuadritos campus — real-world asset 
-                    (RWA) backed by 7.3 MW of operating cogeneration infrastructure.
-                  </p>
-                  <div className="grid grid-cols-3 gap-4 mb-4">
-                    {[
-                      { label: 'Backing', value: '7.3 MW live' },
-                      { label: 'Chain', value: 'Base L2' },
-                      { label: 'Structure', value: 'IGNUM Bajío SAPI' },
-                    ].map(s => (
-                      <div key={s.label} className="text-center">
-                        <p className="text-gold font-bold text-sm">{s.value}</p>
-                        <p className="text-white/30 text-xs">{s.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <a 
-                    href="/acceso"
-                    className="inline-block text-sm text-gold border border-gold/30 px-4 py-2 rounded-lg hover:bg-gold/10 transition-colors font-mono">
-                    Request $IGNUM Details →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-8 border-t border-white/5 text-center">
-              <p className="text-white/20 text-xs max-w-3xl mx-auto">
-                This website contains forward-looking statements regarding IGNUM's planned infrastructure 
-                expansions, projected economics, and future capabilities. Items marked as "Planned" or 
-                "Projected" represent management's current intentions and estimates based on existing 
-                operational data, and are subject to change based on capital availability, market conditions, 
-                and operational execution.
-              </p>
-            </div>
+            <span className="text-white/60 text-sm">© 2026 IGNUM Bajío Energy SAPI de CV</span>
+          </div>
+          <div className="flex gap-6 text-white/40 text-sm">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <a href="mailto:ir@ignumprotocol.ai" className="hover:text-white transition-colors">IR Contact</a>
           </div>
         </div>
       </footer>

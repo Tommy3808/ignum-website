@@ -14,7 +14,7 @@ const capabilities = [
   '400 GbE + IRU Dark Fiber',
   '<2ms latency to Querétaro',
   'Private PPA power agreement',
-  'Sovereign jurisdiction only',
+  'Mexico jurisdiction — no CLOUD Act exposure',
 ];
 
 export default function Infrastructure() {

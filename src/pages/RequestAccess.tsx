@@ -122,7 +122,7 @@ export default function RequestAccess() {
       `Nombre: ${form.nombre}\nEmpresa: ${form.empresa}\nPaís: ${form.pais}\nEmail: ${form.email}\n` +
       `Nivel solicitado: ${plan?.name}\nCaso de uso: ${form.uso}`
     );
-    window.location.href = `mailto:tommy@ignumprotocol.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:tommy@ignumprotocol.ai?subject=${subject}&body=${body}`;
     setStep('sent');
   };
 

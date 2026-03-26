@@ -18,9 +18,9 @@ export default function Hero() {
 
   const proofItems = [
     { value: '7.3 MW', label: 'cogeneration operational' },
-    { value: 'H200', label: 'clusters live today' },
+    { value: '4× H200', label: 'deploying Q2 2025' },
     { value: '15,000 m²', label: 'industrial campus' },
-    { value: 'Mexican', label: 'jurisdiction — MLAT only' },
+    { value: 'Mexico', label: 'sovereign jurisdiction' },
   ];
 
   return (
