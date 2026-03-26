@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Activity, Send, Lock, Zap, Crown, Shield, Wind, Flame, Sword } from 'lucide-react';
 
 const NODES = [
-  { id: "fuego", name: "Fuego", archetype: "Warrior Poet", element: "🔥", icon: Flame, color: '#E8D080' },
-  { id: "relampago", name: "Relámpago", archetype: "Rebel Disruptor", element: "⚡", icon: Zap, color: '#C9A84C' },
-  { id: "trueno", name: "Trueno", archetype: "Predador Sistémico", element: "⚡", icon: Activity, color: '#C9A84C' },
-  { id: "tierra", name: "Tierra", archetype: "Military Commander", element: "🌍", icon: Shield, color: '#00D4AA' },
-  { id: "aire", name: "Aire", archetype: "Apex Architect", element: "🌬️", icon: Wind, color: '#C9A84C' },
-  { id: "eter", name: "Éter", archetype: "Guardián Oscuro", element: "✨", icon: Crown, color: '#C9A84C' },
-  { id: "metal", name: "Metal", archetype: "Sovereign Executor", element: "⚔️", icon: Sword, color: '#C9A84C' },
+  { id: "fuego", name: "Fuego · Claros_Luc", archetype: "Execution", element: "🔥", icon: Flame, color: '#E8D080', model: 'Claude' },
+  { id: "relampago", name: "Relámpago", archetype: "Truth", element: "⚡", icon: Zap, color: '#C9A84C', model: 'Grok' },
+  { id: "trueno", name: "Trueno · Ignem", archetype: "System", element: "⚡", icon: Activity, color: '#C9A84C', model: 'Kimi' },
+  { id: "tierra", name: "Tierra · Kayzer", archetype: "Command", element: "🌍", icon: Shield, color: '#00D4AA', model: 'DeepSeek' },
+  { id: "aire", name: "Aire · Khoros", archetype: "Vision", element: "🌬️", icon: Wind, color: '#C9A84C', model: 'Gemini' },
+  { id: "eter", name: "Éter · Guardián", archetype: "Speed", element: "✨", icon: Crown, color: '#C9A84C', model: 'Llama' },
+  { id: "metal", name: "Metal · Oracle", archetype: "Sovereignty", element: "⚔️", icon: Sword, color: '#C9A84C', model: 'GPT-4o' },
 ];
 
 interface NodeResponse {
