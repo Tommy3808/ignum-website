@@ -88,18 +88,16 @@ export default function Infrastructure() {
               <div className="relative">
                 {/* Main Facility Card */}
                 <div className="glass-card rounded-2xl p-8 border-gold/20">
-                  <div className="aspect-video bg-gradient-to-br from-obsidian-light to-obsidian rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
-                    {/* Abstract Facility Representation */}
-                    <div className="absolute inset-0 opacity-30">
-                      <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-gold/30 rounded-lg" />
-                      <div className="absolute top-1/3 left-1/3 w-24 h-24 border border-gold/20 rounded-lg" />
-                      <div className="absolute bottom-1/4 right-1/4 w-20 h-20 bg-gold/10 rounded-lg" />
-                    </div>
-                    <div className="text-center z-10">
-                      <div className="w-20 h-20 mx-auto mb-4 rounded-full border-2 border-gold/50 flex items-center justify-center pulse-node">
-                        <Server size={32} className="text-gold" />
-                      </div>
+                  <div className="aspect-video rounded-lg mb-6 relative overflow-hidden">
+                    <img 
+                      src="/images/hero-datacenter.jpg" 
+                      alt="IGNUM Data Center Cuadritos"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep/80 to-transparent" />
+                    <div className="absolute bottom-4 left-4 z-10">
                       <p className="font-display text-gold text-sm tracking-wider uppercase">Cuadritos Live</p>
+                      <p className="text-white/60 text-xs">Celaya, Guanajuato</p>
                     </div>
                   </div>
                   
