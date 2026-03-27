@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity, ArrowRight, CheckCircle, Clock, Zap, Cpu, Globe, Shield, FileText, Users, Database, Network } from 'lucide-react';
+import { Activity, ArrowRight, CheckCircle, Zap, Cpu, Globe, Shield, Database, Network } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
@@ -12,12 +12,6 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const statusIcon = (s: string) => {
-    if (s === 'live') return <CheckCircle size={14} className="text-teal flex-shrink-0" />;
-    if (s === 'deploying') return <Activity size={14} className="text-gold flex-shrink-0" />;
-    return <Clock size={14} className="text-white/30 flex-shrink-0" />;
-  };
 
   const statusColor = (s: string) => {
     if (s === 'live') return 'border-teal/20 bg-teal/5';

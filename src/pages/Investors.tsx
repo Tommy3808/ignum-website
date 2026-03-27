@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle, Clock, FileText, Users, Building2, Zap, Server, Shield } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Investors() {
