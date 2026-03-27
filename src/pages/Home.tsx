@@ -46,6 +46,7 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex flex-col justify-center px-6 lg:px-12 pt-20">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(/images/datacenter.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.15 }} />
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian-deep/60 via-obsidian-deep/80 to-obsidian-deep" />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
