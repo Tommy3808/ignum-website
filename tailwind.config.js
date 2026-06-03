@@ -49,9 +49,17 @@ module.exports = {
           dim: '#A08030',
           glow: '#E8D080',
         },
+        // Biotek Power — esmeralda profundo (old money, no neón)
+        biotek: {
+          DEFAULT: '#2E9D63',
+          deep: '#0B3D2A',
+          core: '#1A6E47',
+          glow: '#5FCB8C',
+        },
+        // teal redefinido hacia el esmeralda Biotek para armonizar el sistema vivo
         teal: {
-          DEFAULT: '#00D4AA',
-          dim: '#00A080',
+          DEFAULT: '#2E9D63',
+          dim: '#1A6E47',
         },
       },
       fontFamily: {
