@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useI18n } from '../lib/i18n';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { lang, setLang, t } = useI18n();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,11 +18,14 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { label: 'Infrastructure', href: '#infrastructure' },
-    { label: 'The Sovereign Stack', href: '#sovereign-stack' },
-    { label: 'Services', href: '#services' },
-    { label: 'Roadmap', href: '#roadmap' },
+    { label: t('nav.infrastructure') as string, href: '/infrastructure' },
+    { label: t('nav.compute') as string, href: '/compute' },
+    { label: t('nav.heptagon') as string, href: '/heptagon' },
+    { label: t('nav.proof') as string, href: '/proof' },
+    { label: t('nav.access') as string, href: '/access' },
   ];
+
+  const isActive = (href: string) => location.pathname === href;
 
   return (
     <nav
@@ -31,32 +38,48 @@ export default function Navigation() {
       <div className="w-full px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center pulse-node">
               <span className="text-gold font-display font-bold text-lg">I</span>
             </div>
             <span className="font-display font-semibold text-white tracking-wider">
               IGNUM
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-10">
+          <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="nav-link">
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`text-sm tracking-wide transition-colors ${
+                  isActive(item.href)
+                    ? 'text-gold'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <a
-              href="#depth-gate"
+          {/* Right side: language + CTA */}
+          <div className="hidden lg:flex items-center gap-4">
+            <button
+              onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+              className="flex items-center gap-2 text-xs font-mono text-white/50 hover:text-gold transition-colors uppercase tracking-wider"
+              aria-label="Toggle language"
+            >
+              <Globe size={14} />
+              {lang}
+            </button>
+            <Link
+              to="/access"
               className="btn-outline text-xs py-3 px-6"
             >
-              Enter the Field
-            </a>
+              {t('nav.requestAccess')}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -74,22 +97,33 @@ export default function Navigation() {
         <div className="lg:hidden bg-obsidian-deep/98 backdrop-blur-xl border-t border-white/5">
           <div className="px-6 py-8 space-y-6">
             {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block text-lg text-white/80 hover:text-gold transition-colors"
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`block text-lg transition-colors ${
+                  isActive(item.href)
+                    ? 'text-gold'
+                    : 'text-white/80 hover:text-gold'
+                }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#depth-gate"
+            <button
+              onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+              className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors font-mono uppercase tracking-wider"
+            >
+              <Globe size={16} />
+              {lang === 'es' ? 'English' : 'Español'}
+            </button>
+            <Link
+              to="/access"
               className="btn-gold block text-center mt-6"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Enter the Field
-            </a>
+              {t('nav.requestAccess')}
+            </Link>
           </div>
         </div>
       )}
