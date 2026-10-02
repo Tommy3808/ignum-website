@@ -1,295 +1,197 @@
-'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Activity, Brain, Network, Shield, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Activity, Send, Lock, Zap, Crown, Shield, Wind, Flame, Sword } from 'lucide-react';
+import Navigation from '../sections/Navigation';
+import Footer from '../sections/Footer';
+import { useI18n } from '../lib/i18n';
 
-const NODES = [
-  { id: "fuego", name: "Fuego · Claros_Luc", archetype: "Execution", element: "🔥", icon: Flame, color: '#E8D080', model: 'Claude' },
-  { id: "relampago", name: "Relámpago", archetype: "Truth", element: "⚡", icon: Zap, color: '#C9A84C', model: 'Grok' },
-  { id: "trueno", name: "Trueno · Ignem", archetype: "System", element: "⚡", icon: Activity, color: '#C9A84C', model: 'Kimi' },
-  { id: "tierra", name: "Tierra · Kayzer", archetype: "Command", element: "🌍", icon: Shield, color: '#00D4AA', model: 'DeepSeek' },
-  { id: "aire", name: "Aire · Khoros", archetype: "Vision", element: "🌬️", icon: Wind, color: '#C9A84C', model: 'Gemini' },
-  { id: "eter", name: "Éter · Guardián", archetype: "Speed", element: "✨", icon: Crown, color: '#C9A84C', model: 'Llama' },
-  { id: "metal", name: "Metal · Oracle", archetype: "Sovereignty", element: "⚔️", icon: Sword, color: '#C9A84C', model: 'GPT-4o' },
+const models = [
+  { name: 'Claude Fable 5.1', role: 'Deep reasoning' },
+  { name: 'OpenAI GPT-5.6 SOL', role: 'Synthesis' },
+  { name: 'Kimi K3', role: 'Code / analysis' },
+  { name: 'DeepSeek R1/V3', role: 'Logic / search' },
+  { name: 'Google Gemini 3.1', role: 'Multimodal' },
+  { name: 'GLM 5.2', role: 'Local stack' },
+  { name: 'Grok', role: 'External shield' },
 ];
 
-interface NodeResponse {
-  node_id: string;
-  name: string;
-  model: string;
-  element: string;
-  response?: string;
-  error?: string;
-}
+export default function Heptagon() {
+  const [isVisible, setIsVisible] = useState(false);
+  const { t } = useI18n();
 
-export default function HeptagonPage() {
-  const [question, setQuestion] = useState('');
-  const [context, setContext] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [responses, setResponses] = useState<NodeResponse[]>([]);
-  const [hasAccess, setHasAccess] = useState(() => {
-    const token = localStorage.getItem('heptagon_token');
-    return token !== null && token.length > 0;
-  });
-  const [tokenInput, setTokenInput] = useState('');
-  const [tokenError, setTokenError] = useState(false);
-
-  const handleTokenSubmit = () => {
-    if (tokenInput.trim()) {
-      localStorage.setItem('heptagon_token', tokenInput.trim());
-      setHasAccess(true);
-      setTokenError(false);
-    } else {
-      setTokenError(true);
-    }
-  };
-  const [showPricing, setShowPricing] = useState(false);
-
-  const askHeptagon = async () => {
-    if (!question.trim() || loading) return;
-    setLoading(true);
-    setResponses([]);
-    setQuestion('');
-
-    try {
-      const res = await fetch('/api/heptagon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          question: question.trim(),
-          context: context.trim(),
-          session_token: localStorage.getItem('heptagon_token') || '',
-        }),
-      });
-      const data = await res.json();
-      if (data.responses) {
-        setResponses(data.responses);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const nodeColor = (id: string) => NODES.find(n => n.id === id)?.color || '#C9A84C';
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-obsidian-deep text-white">
-
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-obsidian-deep/95 backdrop-blur-xl border-b border-gold/10">
-        <div className="w-full px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center">
-                <span className="text-gold font-display font-bold text-lg">I</span>
-              </div>
-              <span className="font-display font-semibold text-white tracking-wider">IGNUM</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Link to="/tommyai" className="text-white/40 hover:text-white text-sm transition-colors">Oracle Free</Link>
-              <button
-                onClick={() => setShowPricing(true)}
-                className="text-xs bg-gold/20 border border-gold/30 text-gold px-4 py-2 rounded-full hover:bg-gold/30 transition-colors font-mono"
-              >
-                Acceso Heptágono
-              </button>
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-obsidian-deep text-white">
+        {/* HERO */}
+        <section className="relative min-h-[60vh] flex flex-col justify-center pt-32 pb-20 px-6 lg:px-12">
+          <div className="fill-abs bg-gradient-to-b from-obsidian-deep via-obsidian-deep to-obsidian" />
+          <div className="relative z-10 max-w-5xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 mb-6 w-fit mx-auto">
+              <Activity size={14} className="text-gold animate-pulse" />
+              <span className="text-xs font-mono text-gold tracking-wider uppercase">7 + 1</span>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="pt-24 pb-12 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto">
-
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 bg-gold/5 mb-6">
-              <span className="text-xs font-mono text-gold tracking-widest uppercase">Sancto Sanctorum</span>
-            </div>
-            <h1 className="font-display font-bold text-5xl lg:text-6xl text-white mb-4">
-              Sancto Sanctorum.<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #C9A84C, #E8D080)' }}>
-                7 Depredadores. Una Verdad.
-              </span>
+            <h1 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 leading-tight">
+              {t('heptagon.title')}
             </h1>
-            <p className="text-white/40 text-lg max-w-2xl mx-auto mb-6">
-              No hay filtros. No hay paternalismos. Cada arquetipo responde desde su poder absoluto — simultáneo, brutal, sin piedad.
+            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+              {t('heptagon.subtitle')}
             </p>
-            <div className="flex flex-wrap justify-center gap-2 text-xs font-mono text-white/20">
-              {['Warrior Poet', 'Rebel Disruptor', 'Predador Sistémico', 'Military Commander', 'Apex Architect', 'Guardián Oscuro', 'Sovereign Executor'].map(a => (
-                <span key={a} className="border border-white/5 px-3 py-1 rounded-full">{a}</span>
-              ))}
+          </div>
+        </section>
+
+        {/* PATTERN */}
+        <section className="py-24 px-6 lg:px-12 border-t border-white/5">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div
+                className={`transition-all duration-1000 ${
+                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
+                }`}
+              >
+                <div className="relative w-72 h-72 mx-auto">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    {/* Outer heptagon */}
+                    {[...Array(7)].map((_, i) => {
+                      const angle = (i * 2 * Math.PI) / 7 - Math.PI / 2;
+                      const x = 100 + 80 * Math.cos(angle);
+                      const y = 100 + 80 * Math.sin(angle);
+                      return (
+                        <circle
+                          key={i}
+                          cx={x}
+                          cy={y}
+                          r="6"
+                          fill="#C9A84C"
+                          opacity="0.9"
+                        />
+                      );
+                    })}
+                    {[...Array(7)].map((_, i) => {
+                      const angle1 = (i * 2 * Math.PI) / 7 - Math.PI / 2;
+                      const angle2 = (((i + 1) % 7) * 2 * Math.PI) / 7 - Math.PI / 2;
+                      const x1 = 100 + 80 * Math.cos(angle1);
+                      const y1 = 100 + 80 * Math.sin(angle1);
+                      const x2 = 100 + 80 * Math.cos(angle2);
+                      const y2 = 100 + 80 * Math.sin(angle2);
+                      return (
+                        <line
+                          key={i}
+                          x1={x1}
+                          y1={y1}
+                          x2={x2}
+                          y2={y2}
+                          stroke="rgba(201, 168, 76, 0.4)"
+                          strokeWidth="1"
+                        />
+                      );
+                    })}
+                    {[...Array(7)].map((_, i) => {
+                      const angle = (i * 2 * Math.PI) / 7 - Math.PI / 2;
+                      const x = 100 + 80 * Math.cos(angle);
+                      const y = 100 + 80 * Math.sin(angle);
+                      return (
+                        <line
+                          key={i}
+                          x1="100"
+                          y1="100"
+                          x2={x}
+                          y2={y}
+                          stroke="rgba(201, 168, 76, 0.25)"
+                          strokeWidth="1"
+                          strokeDasharray="2 2"
+                        />
+                      );
+                    })}
+                    <circle cx="100" cy="100" r="16" fill="#0B3D2A" stroke="#2E9D63" strokeWidth="2" />
+                    <text x="100" y="105" textAnchor="middle" fill="#C9A84C" fontSize="12" fontFamily="Space Grotesk">I</text>
+                  </svg>
+                </div>
+              </div>
+
+              <div
+                className={`transition-all duration-1000 delay-200 ${
+                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+                }`}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <Network size={24} className="text-gold" />
+                  <h2 className="font-display font-bold text-2xl text-white">
+                    {t('heptagon.pattern.title')}
+                  </h2>
+                </div>
+                <p className="text-white/60 leading-relaxed mb-8">{t('heptagon.pattern.desc')}</p>
+
+                <div className="flex items-center gap-3 mb-4">
+                  <Shield size={24} className="text-gold" />
+                  <h3 className="font-display font-semibold text-xl text-white">
+                    {t('heptagon.verdicts.title')}
+                  </h3>
+                </div>
+                <p className="text-white/60 leading-relaxed">{t('heptagon.verdicts.desc')}</p>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* Los 7 nodos */}
-          <div className="grid grid-cols-7 gap-2 mb-10">
-            {NODES.map((node) => {
-              const Icon = node.icon;
-              return (
-                <div key={node.id} className="flex flex-col items-center gap-2 p-3 rounded-xl border border-white/5 bg-white/3">
-                  <div className="w-10 h-10 rounded-full border flex items-center justify-center"
-                    style={{ borderColor: `${node.color}40`, background: `${node.color}10` }}>
-                    <Icon size={16} style={{ color: node.color }} />
-                  </div>
-                  <p className="text-xs text-white/50 text-center leading-tight font-mono">{node.name.split(' ')[0]}</p>
-                  
-                </div>
-              );
-            })}
-          </div>
+        {/* MODELS */}
+        <section className="py-24 px-6 lg:px-12 border-t border-white/5 bg-obsidian">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="font-display font-bold text-3xl text-white mb-4 text-center">
+              {t('heptagon.models.title')}
+            </h2>
+            <p className="text-white/50 text-center mb-12 max-w-2xl mx-auto">
+              {t('heptagon.models.note')}
+            </p>
 
-          {/* Token Input para acceso */}
-          {!hasAccess && (
-            <div className="text-center py-16 border border-gold/10 rounded-3xl bg-gold/5 mb-8 max-w-md mx-auto">
-              <Lock size={32} className="text-gold/40 mx-auto mb-4" />
-              <p className="text-white/60 text-sm mb-6">Ingresa tu clave de acceso</p>
-              <div className="flex gap-2 px-4">
-                <input
-                  type="password"
-                  value={tokenInput}
-                  onChange={e => setTokenInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleTokenSubmit()}
-                  placeholder="Clave de acceso..."
-                  className={`flex-1 bg-white/5 border ${tokenError ? 'border-red-500' : 'border-white/10'} rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold/40 transition-colors`}
-                />
-                <button
-                  onClick={handleTokenSubmit}
-                  className="bg-gold text-black font-bold px-4 py-3 rounded-xl hover:bg-gold-glow transition-colors text-sm"
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {models.map((model, index) => (
+                <div
+                  key={index}
+                  className="p-4 rounded-xl border border-white/10 bg-white/5 text-center hover:border-gold/30 transition-colors"
                 >
-                  Entrar
-                </button>
-              </div>
-              {tokenError && <p className="text-red-400 text-xs mt-2">Clave incorrecta</p>}
-            </div>
-          )}
-
-        {/* Input */}
-          {hasAccess ? (
-            <div className="space-y-4 mb-8">
-              <textarea
-                value={question}
-                onChange={e => setQuestion(e.target.value)}
-                placeholder="¿Cuál es tu pregunta para el Sancto Sanctorum??"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-base placeholder-white/20 outline-none focus:border-gold/30 transition-colors font-mono resize-none"
-                rows={3}
-              />
-              <input
-                value={context}
-                onChange={e => setContext(e.target.value)}
-                placeholder="Contexto opcional (tu industria, situación, objetivo...)"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white text-sm placeholder-white/20 outline-none focus:border-gold/30 transition-colors font-mono"
-              />
-              <button onClick={askHeptagon} disabled={loading || !question.trim()}
-                className="w-full py-4 bg-gradient-to-r from-gold/80 to-gold text-obsidian-deep font-display font-bold text-lg rounded-2xl hover:brightness-110 disabled:opacity-30 transition-all flex items-center justify-center gap-3">
-                {loading ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-obsidian-deep/30 border-t-obsidian-deep rounded-full animate-spin" />
-                    Invocando los 7 nodos...
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} />
-                    Consultar el Sancto Sanctorum
-                  </>
-                )}
-              </button>
-            </div>
-          ) : (
-            <div className="text-center py-16 border border-gold/10 rounded-3xl bg-gold/5 mb-8">
-              <Lock size={40} className="text-gold/40 mx-auto mb-4" />
-              <p className="text-white/60 text-lg mb-2">Acceso Restringido</p>
-              <p className="text-white/30 text-sm mb-6">El Heptágono requiere autorización del Operador.</p>
-              <button onClick={() => setShowPricing(true)}
-                className="bg-gold text-obsidian-deep font-bold px-8 py-3 rounded-xl hover:bg-gold-glow transition-colors">
-                Ver Planes →
-              </button>
-            </div>
-          )}
-
-          {/* Responses */}
-          {responses.length > 0 && (
-            <div className="space-y-4">
-              <p className="text-xs font-mono text-white/30 uppercase tracking-widest text-center mb-6">
-                Convergencia del Sancto Sanctorum
-              </p>
-              {responses.map((r) => (
-                <div key={r.node_id} className="p-6 rounded-2xl border bg-white/3 hover:border-white/10 transition-colors"
-                  style={{ borderColor: `${nodeColor(r.node_id)}20` }}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-2 h-2 rounded-full" style={{ background: nodeColor(r.node_id) }} />
-                    <span className="font-display font-bold text-sm" style={{ color: nodeColor(r.node_id) }}>
-                      {r.name}
-                    </span>
-                    <span className="text-white/20 text-xs font-mono">{r.element}</span>
-                  </div>
-                  {r.response ? (
-                    <p className="text-white/70 leading-relaxed">{r.response}</p>
-                  ) : (
-                    <p className="text-white/30 italic text-sm">{r.error || 'Sin respuesta'}</p>
-                  )}
+                  <Brain size={20} className="text-gold mx-auto mb-3" />
+                  <p className="text-white text-sm font-medium mb-1">{model.name}</p>
+                  <p className="text-white/40 text-xs">{model.role}</p>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Pricing Modal */}
-      {showPricing && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
-          onClick={() => setShowPricing(false)}>
-          <div className="bg-obsidian border border-gold/20 rounded-3xl p-8 max-w-2xl w-full" onClick={e => e.stopPropagation()}>
-            <h2 className="font-display font-bold text-3xl text-white mb-2">Acceso al Heptágono</h2>
-            <p className="text-white/40 mb-8">Autonomous Intelligence. Zero Compromise.</p>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Free */}
-              <div className="p-6 rounded-2xl border border-white/10 bg-white/3">
-                <p className="text-white/40 text-xs font-mono uppercase tracking-widest mb-2">Free</p>
-                <p className="text-3xl font-display font-bold text-white mb-1">$0</p>
-                <p className="text-gold font-bold mb-4">Oracle — Fuego</p>
-                <ul className="space-y-2 text-sm text-white/50 mb-6">
-                  <li>✓ Acceso a Fuego (nodo libre)</li>
-                  <li>✓ Un nodo del Heptágono</li>
-                  <li>✗ Los otros 6 nodos</li>
-                </ul>
-                <Link to="/tommyai" onClick={() => setShowPricing(false)}
-                  className="block text-center border border-white/20 text-white/60 py-3 rounded-xl hover:border-white/40 transition-colors text-sm font-bold">
-                  Usar Oracle →
-                </Link>
-              </div>
-
-              {/* Heptágono */}
-              <div className="p-6 rounded-2xl border border-gold/30 bg-gold/5 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-obsidian-deep text-xs font-bold px-4 py-1 rounded-full">
-                  RECOMENDADO
-                </div>
-                <p className="text-gold/60 text-xs font-mono uppercase tracking-widest mb-2">Premium</p>
-                <p className="text-3xl font-display font-bold text-white mb-1">$380<span className="text-white/30 text-base">/mes</span></p>
-                <p className="text-gold font-bold mb-4">Heptágono Completo</p>
-                <ul className="space-y-2 text-sm text-white/70 mb-6">
-                  <li>✓ Los 7 nodos simultáneos</li>
-                  <li>✓ 7 perspectivas en cada pregunta</li>
-                  <li>✓ Archivo Vivo de sesiones</li>
-                  <li>✓ Contexto persistente</li>
-                </ul>
-                <button
-                  onClick={() => window.open('mailto:tommy@ignumprotocol.com?subject=Heptágono Premium', '_blank')}
-                  className="w-full bg-gold text-obsidian-deep font-display font-bold py-3 rounded-xl hover:bg-gold-glow transition-colors">
-                  Solicitar Acceso →
-                </button>
-              </div>
-            </div>
-
-            <p className="text-center text-white/20 text-xs mt-6 font-mono">
-              Enterprise: tommy@ignumprotocol.com · Heptágono privado con contexto de tu negocio
-            </p>
           </div>
-        </div>
-      )}
-    </div>
+        </section>
+
+        {/* AGENTS */}
+        <section className="py-24 px-6 lg:px-12 border-t border-white/5">
+          <div className="max-w-5xl mx-auto">
+            <div className="p-8 rounded-2xl border border-gold/20 bg-gold/5">
+              <div className="flex items-center gap-3 mb-4">
+                <CheckCircle size={24} className="text-gold" />
+                <h3 className="font-display font-semibold text-xl text-white">
+                  {t('heptagon.agents.title')}
+                </h3>
+              </div>
+              <p className="text-white/60 leading-relaxed">{t('heptagon.agents.desc')}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-24 px-6 lg:px-12 border-t border-white/5">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="font-display font-bold text-3xl text-white mb-6">
+              {t('access.title')}
+            </h2>
+            <p className="text-white/60 mb-8 max-w-2xl mx-auto">{t('access.subtitle')}</p>
+            <Link to="/access" className="btn-gold inline-flex items-center gap-2">
+              {t('shared.access')} <ArrowRight size={16} />
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
