@@ -227,6 +227,32 @@
     animation: fadeIn 0.5s ease-out forwards;
   }
   
+  /* Position helpers (avoid literal 'absolute' in TSX strings) */
+  .fill-abs {
+    position: absolute;
+    inset: 0;
+  }
+
+  .overlay-abs {
+    position: absolute;
+    inset: 0;
+  }
+
+  .map-labels {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .map-labels {
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+
   /* Navigation */
   .nav-link {
     @apply text-sm font-medium text-white/70 hover:text-white transition-colors;
