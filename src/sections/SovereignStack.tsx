@@ -1,40 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Zap, Cpu, Shield, Network } from 'lucide-react';
-
-const pillars = [
-  {
-    icon: Zap,
-    name: 'Energy',
-    detail: '7.3 MW cogeneration at fixed internal PPA',
-    metric: '$0.038–0.045/kWh',
-    description: 'Own power generation with full industrial permits. Energy independence as foundation.',
-  },
-  {
-    icon: Cpu,
-    name: 'Silicon',
-    detail: 'H200 141GB + Blackwell clusters — Celaya deployment underway',
-    metric: 'Deploying 2026',
-    description: 'NVIDIA H200 SXM5 141GB acquired. Deployment to Cuadritos campus underway.',
-  },
-  {
-    icon: Shield,
-    name: 'Jurisdiction',
-    detail: 'Mexican law. MLAT only. Sovereign data control',
-    metric: 'No CLOUD Act',
-    description: 'Data protected by Mexican jurisdiction only. No US CLOUD Act exposure. True sovereignty.',
-  },
-  {
-    icon: Network,
-    name: 'Orchestration',
-    detail: 'Heptágono intelligence layer + TommyAI',
-    metric: 'v11.0 Live',
-    description: 'Seven-model convergence layer. Autonomous orchestration. The field that thinks.',
-  },
-];
+import { Zap, Cpu, Brain, Network, Users } from 'lucide-react';
+import { useI18n } from '../lib/i18n';
 
 export default function SovereignStack() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,7 +15,7 @@ export default function SovereignStack() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -54,94 +25,104 @@ export default function SovereignStack() {
     return () => observer.disconnect();
   }, []);
 
+  const layers = [
+    {
+      icon: Zap,
+      title: t('home.stack.energy.title'),
+      today: t('home.stack.energy.today'),
+      next: t('home.stack.energy.next'),
+    },
+    {
+      icon: Cpu,
+      title: t('home.stack.silicon.title'),
+      today: t('home.stack.silicon.today'),
+      next: t('home.stack.silicon.next'),
+    },
+    {
+      icon: Brain,
+      title: t('home.stack.models.title'),
+      today: t('home.stack.models.today'),
+      next: t('home.stack.models.next'),
+    },
+    {
+      icon: Network,
+      title: t('home.stack.orchestration.title'),
+      today: t('home.stack.orchestration.today'),
+      next: t('home.stack.orchestration.next'),
+    },
+    {
+      icon: Users,
+      title: t('home.stack.agents.title'),
+      today: t('home.stack.agents.today'),
+      next: t('home.stack.agents.next'),
+    },
+  ];
+
   return (
-    <section 
-      id="sovereign-stack" 
+    <section
+      id="sovereign-stack"
       ref={sectionRef}
-      className="relative py-32 overflow-hidden"
+      className="relative py-24 overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-obsidian-deep" />
-      <div 
-        className="absolute inset-0 opacity-30"
+      <div className="fill-abs bg-obsidian-deep" />
+      <div
+        className="fill-abs opacity-30"
         style={{
           background: 'radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 50%)',
         }}
       />
 
       <div className="relative z-10 w-full px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Section Header */}
-          <div 
-            className={`text-center mb-20 transition-all duration-1000 ${
+        <div className="max-w-6xl mx-auto">
+          <div
+            className={`text-center mb-16 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6">
-              The <span className="text-gradient-gold">Sovereign Stack</span>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+              {t('home.stack.title')}
             </h2>
-            
-            {/* Foundational Statement */}
-            <div className="inline-block px-8 py-4 border border-gold/30 bg-gold/5 rounded-lg">
-              <p className="font-display text-xl lg:text-2xl text-gold italic">
-                "The model is not the moat. Infrastructure control is."
-              </p>
-            </div>
+            <p className="text-white/50 text-lg">{t('home.stack.subtitle')}</p>
           </div>
 
-          {/* Pillars Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pillars.map((pillar, index) => {
-              const Icon = pillar.icon;
+          <div className="space-y-4">
+            {layers.map((layer, index) => {
+              const Icon = layer.icon;
               return (
                 <div
-                  key={pillar.name}
-                  className={`pillar-card group transition-all duration-700 ${
+                  key={index}
+                  className={`group p-6 rounded-xl border border-white/10 bg-white/5 hover:border-gold/30 transition-all duration-700 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                   }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
+                  style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  {/* Icon & Name */}
-                  <div className="flex items-start gap-4 mb-4">
+                  <div className="flex flex-col md:flex-row md:items-start gap-6">
                     <div className="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
                       <Icon size={24} className="text-gold" />
                     </div>
-                    <div>
-                      <h3 className="font-display font-semibold text-2xl text-white mb-1">
-                        {pillar.name}
+                    <div className="flex-1">
+                      <h3 className="font-display font-semibold text-xl text-white mb-4">
+                        {layer.title}
                       </h3>
-                      <p className="text-gold font-mono text-sm">{pillar.metric}</p>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 rounded-lg border border-teal/20 bg-teal/5">
+                          <p className="text-xs font-mono text-teal uppercase tracking-wider mb-1">
+                            {t('home.stack.today')}
+                          </p>
+                          <p className="text-white/80 text-sm leading-relaxed">{layer.today}</p>
+                        </div>
+                        <div className="p-4 rounded-lg border border-gold/20 bg-gold/5">
+                          <p className="text-xs font-mono text-gold uppercase tracking-wider mb-1">
+                            {t('home.stack.next')}
+                          </p>
+                          <p className="text-white/80 text-sm leading-relaxed">{layer.next}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Detail */}
-                  <p className="text-white/80 font-medium mb-3">
-                    {pillar.detail}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-white/50 text-sm leading-relaxed">
-                    {pillar.description}
-                  </p>
-
-                  {/* Hover Glow */}
-                  <div className="absolute -inset-px bg-gradient-to-r from-gold/0 via-gold/10 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </div>
               );
             })}
-          </div>
-
-          {/* Bottom Statement */}
-          <div 
-            className={`mt-16 text-center transition-all duration-1000 delay-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            <p className="text-white/40 text-sm max-w-2xl mx-auto">
-              Four layers. One integrated platform. Zero external dependencies. 
-              This is what sovereignty looks like in the age of artificial intelligence.
-            </p>
           </div>
         </div>
       </div>
