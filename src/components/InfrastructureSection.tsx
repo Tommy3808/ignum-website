@@ -220,7 +220,7 @@ const InfrastructureSection = ({ className = '' }: InfrastructureSectionProps) =
         style={{ willChange: 'transform, opacity' }}
       >
         <p className="font-mono text-xs text-ignum-gray/70 uppercase tracking-wider">
-          Cuadritos, Celaya. 25 km from Querétaro City. Available Q2 2025.
+          Biotek Power, Celaya. 25 km from Querétaro City. Available Q2 2025.
         </p>
       </div>
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MapPin, Zap, Droplets, Server, CheckCircle } from 'lucide-react';
 
 const infrastructureFacts = [
-  { icon: MapPin, label: 'Location', value: 'Parque Industrial Cuadritos, Celaya, Guanajuato' },
+  { icon: MapPin, label: 'Location', value: 'Parque Industrial Biotek Power, Celaya, Guanajuato' },
   { icon: Zap, label: 'Power', value: '7.3 MW cogeneration capacity' },
   { icon: Server, label: 'Compute', value: 'H200 SXM5 clusters — deployment in progress' },
   { icon: Droplets, label: 'Cooling', value: 'Direct-to-chip CaaS @ 7°C' },
@@ -73,7 +73,7 @@ export default function Infrastructure() {
               Real. Operational. <span className="text-gradient-gold">Now.</span>
             </h2>
             <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              Hardware acquired. Infrastructure being deployed at Cuadritos campus.
+              Hardware acquired. Infrastructure being deployed at Biotek Power campus.
             </p>
           </div>
 
@@ -91,12 +91,12 @@ export default function Infrastructure() {
                   <div className="aspect-video rounded-lg mb-6 relative overflow-hidden">
                     <img 
                       src="/images/hero-datacenter.jpg" 
-                      alt="IGNUM Data Center Cuadritos"
+                      alt="IGNUM Data Center Biotek Power"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep/80 to-transparent" />
                     <div className="absolute bottom-4 left-4 z-10">
-                      <p className="font-display text-gold text-sm tracking-wider uppercase">Cuadritos Live</p>
+                      <p className="font-display text-gold text-sm tracking-wider uppercase">Biotek Power Live</p>
                       <p className="text-white/60 text-xs">Celaya, Guanajuato</p>
                     </div>
                   </div>

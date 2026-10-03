@@ -54,7 +54,7 @@ export default function Home() {
           <div className={`flex items-center justify-center gap-3 mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-teal/30 bg-teal/5">
               <Activity size={14} className="text-teal" />
-              <span className="text-xs font-mono text-teal tracking-wider uppercase">Operational · Cuadritos, MX</span>
+              <span className="text-xs font-mono text-teal tracking-wider uppercase">Operational · Biotek Power, MX</span>
             </div>
           </div>
 

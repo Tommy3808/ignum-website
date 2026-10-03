@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Bottom Bar */}
           <div className="mt-8 pt-8 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between gap-4">
             <p className="text-white/30 text-xs text-center lg:text-left">
-              Parque Industrial Cuadritos, Celaya, Guanajuato, México · 7.3 MW operational
+              Parque Industrial Biotek Power, Celaya, Guanajuato, México · 7.3 MW operational
             </p>
             
             <div className="flex items-center gap-6">

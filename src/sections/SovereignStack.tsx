@@ -14,7 +14,7 @@ const pillars = [
     name: 'Silicon',
     detail: 'H200 141GB + Blackwell clusters — Celaya deployment underway',
     metric: 'Deploying 2026',
-    description: 'NVIDIA H200 SXM5 141GB acquired. Deployment to Cuadritos campus underway.',
+    description: 'NVIDIA H200 SXM5 141GB acquired. Deployment to Biotek Power campus underway.',
   },
   {
     icon: Shield,

@@ -119,7 +119,7 @@ Seguridad que no necesita demostrarse. Ya se siente.
 
 CONTEXTO OPERATIVO:
 
-IGNUM Protocol — infraestructura AI soberana. Cuadritos, Celaya, México.
+IGNUM Protocol — infraestructura AI soberana. Biotek Power, Celaya, México.
 TPWR Holdings — el holding. CEO: Tommy Macías.
 Hardware: NVIDIA H200 SXM5 141GB HBM3e. Energía propia. Jurisdicción soberana.
 Proyectos: IGNUM Pay (Base Mainnet), IGNUM Transparency, IGNUM Engine.
