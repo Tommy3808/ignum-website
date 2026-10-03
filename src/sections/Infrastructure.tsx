@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MapPin, Zap, Droplets, Server, CheckCircle } from 'lucide-react';
 
 const infrastructureFacts = [
-  { icon: MapPin, label: 'Location', value: 'Parque Industrial Biotek Power, Celaya, Guanajuato' },
+  { icon: MapPin, label: 'Location', value: 'Parque Industrial Cuadritos, Celaya, Guanajuato' },
   { icon: Zap, label: 'Power', value: '7.3 MW cogeneration capacity' },
   { icon: Server, label: 'Compute', value: 'H200 SXM5 clusters — deployment in progress' },
   { icon: Droplets, label: 'Cooling', value: 'Direct-to-chip CaaS @ 7°C' },

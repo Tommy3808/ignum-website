@@ -174,7 +174,7 @@ export default function Services() {
             }`}
           >
             <p className="text-white/40 text-sm">
-              All services backed by live infrastructure at Parque Industrial Biotek Power.
+              All services backed by live infrastructure at Parque Industrial Cuadritos.
               <br />
               No vaporware. No roadmap promises. Hardware running today.
             </p>

@@ -113,7 +113,7 @@ export default function Contact() {
                     <div>
                       <p className="text-white/40 text-sm mb-1">Headquarters</p>
                       <p className="text-white">
-                        Parque Industrial Biotek Power<br />
+                        Parque Industrial Cuadritos<br />
                         Celaya, Guanajuato, México
                       </p>
                     </div>
