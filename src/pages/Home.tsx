@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Activity, ArrowRight, CheckCircle, Zap, Cpu, Globe, Shield, Database, Network } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BiotekPower from '../sections/BiotekPower';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -235,6 +236,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* BIOTEK POWER */}
+      <BiotekPower />
 
       {/* FOOTER */}
       <footer className="py-8 px-6 lg:px-12 border-t border-white/5">
